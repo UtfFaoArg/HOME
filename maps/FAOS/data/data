@@ -1,0 +1,142 @@
+"type": "Feature", "properties": { "sigla": "SDs", "nombre": "Sedimentitas marinas y continentales", "ambiente": "Ambiente mixto, plataforma siliciclástica. Cuenca de antepaís", "edad_inf": "Silúrico", "edad_sup": "Devónico", "litologia": "Limolitas, diamictitas, grauvacas, lutitas", "region": "Región I: Puna, Cordillera Oriental, Sierras Subandinas", "unidades": "Formaciones Mecoyita, Zapla, Lipeón y equivalentes", "ruleid": 151 }, "geometry":
+
+
+
+/* Estilo para la capa geologico_segemar_CLIP */
+.geologico_segemar_CLIP {
+    fill: #e5ffff;
+    stroke: #232323;
+    stroke-width: 1;
+    stroke-linejoin: bevel;
+  }
+  
+  /* Reglas para categorías específicas */
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Cgm'] {
+    fill: #afafaf;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='KE'] {
+    fill: #d1ff0f;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='N2c'] {
+    fill: #ffdd99;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='N2f'] {
+    fill: #ffeacc;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Nc'] {
+    fill: #ffff14;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Qa'] {
+    fill: #fff7e5;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Qfl'] {
+    fill: #b3fdb8;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Ql'] {
+    fill: #efefef;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Qlp-b'],
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Qlp-l'],
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Qlp-p'],
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='Qlp-s'] {
+    fill: #fff7e5;
+  }
+  
+  .geologico_segemar_CLIP[ogc\\:PropertyName='sigla'][ogc\\:Literal='SDs'] {
+    fill: #e8b789;
+  }
+  
+
+
+
+
+
+
+
+
+
+
+'Agua de Red'
+ 'Camion cisterna'
+ 'Cisterna, tanque'
+ 'Escuela' 
+ 'Mangueras' 
+ 'Pozo de agua'
+ 'Puesto vacios'
+ 'Represa'
+ 'Sin agua'
+ 'Sin dato'
+ 'Techo cisterna'
+ 'Techo cisterna, Pozo de agua'
+
+
+
+    "Name": "LA UNION", 
+    "SITUACION": "GALPON DE ACOPIO",
+    "ESTADO": "Construida", 
+    "CONSTRUYE": "FUNDAPAZ", 
+    "VOL_CONST": "16.0", 
+    "Num_fami": "10.0", 
+    "NOm": "Galpon de acopio", 
+    "Tipo_const": "Techo cisterna", 
+    "Profundida": "No Corresponde"
+    
+
+// Función para generar la leyenda
+function createLegend() {
+    var legend = L.control({ position: 'bottomright' });
+
+    legend.onAdd = function () {
+        var div = L.DomUtil.create('div', 'info legend');
+        var labels = [];
+
+        // Array con los estilos y sus etiquetas correspondientes
+        var styles = [
+            { label: 'Agua de Red', color: '#8dd3c7' },
+            { label: 'Pozo de agua', color: '#276e9e' },
+            { label: 'Camion cisterna', color: '#8e43bf' },
+            { label: 'Cisterna y tanque', color: '#ffffb3' },
+            { label: 'Techo cisterna', color: '#608a17' },
+            { label: 'Techo cisterna y Pozo de agua', color: '#fccde5' },
+            { label: 'Represa', color: '#fb8072' },
+            { label: 'Escuela', color: '#998ef0' },
+            { label: 'Mangueras', color: '#bebada' },
+            { label: 'Sin agua', color: '#fdb462' },
+            { label: 'Puesto vacios', color: '#80b1d3' },
+            { label: 'Sin dato', color: '#000' },
+
+            // Agrega aquí el resto de estilos con su respectiva etiqueta y color
+        ];
+
+        // Genera el contenido HTML de la leyenda
+        styles.forEach(function (style) {
+            labels.push(
+                '<i style="background:' + style.color + '"></i> ' + style.label
+            );
+        });
+
+        div.innerHTML = labels.join('<br>');
+        return div;
+    };
+
+    // Función para mostrar/ocultar la leyenda
+    function toggleLegend() {
+        if (map.hasLayer(PUESTOS)) {
+            legend.addTo(map);
+        } else {
+            legend.remove();
+        }
+    }
+// Eliminar la leyenda al inicio
+legend.remove();
+    // Escucha el cambio de estado de la capa
+    map.on('overlayadd overlayremove', toggleLegend);
+}

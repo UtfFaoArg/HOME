@@ -1,0 +1,297 @@
+﻿<!DOCTYPE html>
+<html lang="es-419">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<head>
+	<title>FAO UTF031 ARG </title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+
+	<!-- <link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.skinNice.css" /> -->
+	<link rel="stylesheet" href="css/leaflet.css" />
+	<link rel="stylesheet" href="css/leaflet-panel-layers.css" />
+	<link rel="stylesheet" href="css/leaflet-panel-layers.min.css" />
+	<link rel="stylesheet" href="css/leaflet-panel-layers.src.css" />
+	<link rel="stylesheet" href="css/L.Control.HtmlLegend.css" />
+	<link rel="stylesheet" href="css/leaflet-search.css" />
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+	<!-- <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" /> -->
+	<link rel="stylesheet" href="css/leaflet.awesome-markers.css" />
+	<!-- leyenda transparent -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+
+
+	<!-- rangeSlider - stefano cudinii y open -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet-panel-layers" crossorigin=""></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+	<script src="https://unpkg.com/leaflet-panel-layers"></script>
+	<script src="https://unpkg.com/leaflet.wms/dist/leaflet.wms.js"></script>
+
+
+	<!-- complemento awesomeMarker-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+
+	<script src="js/leaflet-panel-layers.src.js"></script>
+	<script src="js/leaflet-panel-layers.min.js"></script>
+	<script src="js/leaflet-panel-layers.js"></script>
+	<script src="js/L.Control.Appearance.js"></script>
+	<script src="js/jquery-3.5.1.js"></script>
+	<script src="js/L.Control.HtmlLegend.js"></script>
+	<script src="js/leaflet-search.js"></script>
+	<script src="js/leaflet.awesome-markers.js"></script>
+	<script src="js/leaflet.awesome-markers.min.js"></script>
+	<!-- full screen-->
+	<script src="js/Control.FullScreen.js"></script>
+	<!-- geolocalizacion-->
+	<link rel="stylesheet" href="css/L.Control.Locate.css" />
+	<script src="js/L.Control.Locate.js"></script>
+	<script src="js/L.Control.Locate.min.js"></script>
+	<!-- plugin wms-->
+	<script src="js/leaflet.wms.js"></script>
+	<!-- imprimir -->
+	<script src="js/bundle.js"></script>
+	<script src="js/bundle.js.map"></script>
+
+
+	<!-- en la Carpeta DATA estan los js como capas-->
+
+	<script type="text/javascript" src="data/fao/proviciasFAO.js"></script>
+	<script type="text/javascript" src="data/fao/regiones.js"></script>
+	<!-- <script type="text/javascript" src="js/ppmtemp.js"></script> -->
+	<script type="text/javascript" src="js/mapa.js"></script>
+	<script type="text/javascript" src="js/panelLayers.js"></script>
+	<script type="text/javascript" src="js/wmsconae.js"></script>
+
+	<style>
+		html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: Arial, sans-serif;
+}
+
+.header {
+    height: 60px; /* Altura del encabezado */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 30px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #ffffff;
+    z-index: 10;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: relative;
+}
+
+
+.Mapa {
+    position: fixed;        /* Fija el div a toda la pantalla */
+    top: 65px;                 /* Alineado al borde superior */
+    left: 0;                /* Alineado al borde izquierdo */
+    width: 100vw;           /* Ocupa el ancho completo de la pantalla */
+   height: auto;          /* Ocupa el alto completo de la pantalla */
+
+	overflow: hidden;       /* Evita desbordes del contenido */
+    z-index: 1;             /* Asegura que esté detrás de otros elementos, si es necesario */
+    background: #f0f0f0;    /* Fondo claro (puedes cambiarlo o eliminarlo) */
+    box-sizing: border-box; /* Asegura que paddings y bordes no afecten el tamaño */
+}
+#map {
+    position: fixed;
+    top: 85px; /* Justo debajo del encabezado */
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto; /* Deja que el `bottom` determine la altura */
+    overflow: hidden;
+    background-color: #fff; /* Solo para pruebas */
+	background: rgba(252, 251, 251, 0.2); /* Fondo rojo claro */
+}
+#map-frame {
+    width: 100%;            /* Ancho completo del contenedor */
+    height: 100%;           /* Alto completo del contenedor */
+	top: 65px;                 /* Alineado al borde superior */
+    border: none;           /* Elimina bordes visibles del iframe */
+    display: block;         /* Asegura que el iframe se renderice como bloque */
+	overflow: hidden; /* Asegura que no haya problemas de scroll */
+    display: block; /* Asegura que ocupe todo el espacio */
+	margin: 0;
+    padding: 0;
+    box-sizing: border-box; /* Asegura que no herede márgenes/paddings no deseados */
+
+}
+
+
+		/* Logo */
+		.logo {
+			display: flex;
+			align-items: center;
+			font-size: 1.5rem;
+			font-weight: bold;
+			color: black;
+			text-decoration: none;
+		}
+
+		.logo img {
+			width: 24px;
+			height: 24px;
+			margin-right: 10px;
+		}
+
+		.logo span {
+			color: #1e73e8;
+			/* Color del icono */
+		}
+
+		/* Navegación */
+		.nav-links {
+			display: flex;
+			gap: 20px;
+
+		}
+
+		.nav-links a {
+			color: black;
+			text-decoration: none;
+			font-weight: 500;
+			font-size: 0.9rem;
+			position: relative;
+		}
+
+		.nav-links a:hover {
+			color: #1e73e8;
+		}
+
+		/* Submenú para NOA */
+		.dropdown {
+			position: relative;
+		}
+
+		.dropdown-content {
+			display: none;
+			position: absolute;
+			top: 100%;
+			left: 0;
+			background-color: #ffffff;
+			box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+			z-index: 20;
+			/* Asegura que el submenú esté sobre el mapa */
+			padding: 10px 0;
+			min-width: 160px;
+		}
+
+		.dropdown-content a {
+			color: black;
+			padding: 10px 20px;
+			text-decoration: none;
+			display: block;
+		}
+
+		.dropdown-content a:hover {
+			background-color: #f1f1f1;
+			color: #1e73e8;
+		}
+
+		/* Muestra el submenú al pasar el cursor */
+		.dropdown:hover .dropdown-content {
+			display: block;
+		}
+	</style>
+
+
+</head>
+
+<body>
+	<!-- Encabezado -->
+	<header class="header">
+		<!-- Logo -->
+		<a href="/index.html" class="logo">
+			<img src="./images/FAO_logo.svg.png" alt="Logo"> <!-- Reemplaza "icon.png" con la ruta de tu icono -->
+			<span>Inicio</span>
+		</a>
+
+		<!-- Navegación -->
+		<nav class="nav-links">
+			<!-- <a href="#">Home</a> -->
+			<div class="dropdown">
+				<a href="#">NOA <span>&#9662;</span></a>
+				<div class="dropdown-content">
+					<a href="./maps/FAOC/index.html" data-map="FAOC">Catamarca</a>
+					<a href="./maps/FAOJ/index.html" data-map="FAOJ">Jujuy</a>
+					<a href="./maps/FAOLR/index.html" data-map="FAOLR">La Rioja</a>
+					<a href="./maps/FAOS/index.html" data-map="FAOS">Salta</a>
+					<a href="./maps/FAOSE/index.html" data-map="FAOSE">Santiago del Estero</a>
+					<a href="./maps/FAOT/index.html" data-map="FAOT">Tucumán</a>
+
+				</div>
+			</div>
+
+			<a href="#">NEA </a>
+			<a href="#">CUYO </a>
+			<a href="#">PATAGONIA</a>
+		</nav>
+
+	</header>
+	<div class="Mapa" id="map" >
+		<iframe id="map-frame" src = "./maps/home/index.html"></iframe>
+	</div>
+
+
+
+	<script>
+
+		document.addEventListener("DOMContentLoaded", () => {
+			const mapFrame = document.getElementById("map-frame");
+			let map; // Variable global para el mapa
+			// Inicialización del mapa (puedes personalizar las opciones)
+			const initializeMap = (center, zoom) => {
+				if (map) {
+					map.remove(); // Elimina el mapa actual si existe
+				}
+
+
+			};
+
+			// Agregar evento a cada enlace
+			document.querySelectorAll(".dropdown-content a").forEach((link) => {
+				link.addEventListener("click", (event) => {
+					event.preventDefault();
+					const folder = link.getAttribute("data-map");
+					if (folder) {
+						const mapUrl = `maps/${folder}/index.html`;
+						mapFrame.src = mapUrl; // Cambia dinámicamente la URL del iframe
+					} else {
+						alert("Mapa no disponible.");
+					}
+				});
+			});
+		});
+
+
+	</script> 
+
+
+</body>
+
+</html>

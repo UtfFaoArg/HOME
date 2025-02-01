@@ -1,0 +1,445 @@
+﻿<!DOCTYPE html>
+<html lang="es-419">
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=0.8, maximum-scale=0.8, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<head>
+	<title>FAO UTF031 ARG</title>
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" />
+
+	<!-- <link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.skinNice.css" /> -->
+
+	<link rel="stylesheet" href="css/leaflet.css" />
+	<link rel="stylesheet" href="css/leaflet-panel-layers.css" />
+	<link rel="stylesheet" href="css/leaflet-panel-layers.min.css" />
+	<link rel="stylesheet" href="css/leaflet-panel-layers.src.css" />
+	<link rel="stylesheet" href="css/L.Control.HtmlLegend.css" />
+	<link rel="stylesheet" href="css/leaflet-search.css" />
+	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+	<!-- <link rel="stylesheet" href="https://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" /> -->
+	<link rel="stylesheet" href="css/leaflet.awesome-markers.css" />
+	<!-- leyenda transparent -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" />
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/css/ion.rangeSlider.min.css" />
+	<!-- icon style -->
+	<link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.css" />
+	<link rel="stylesheet" href="https://unpkg.com/ion-rangeslider@2.2.0/css/ion.rangeSlider.skinNice.css" />
+	<link rel="stylesheet" href="http://code.ionicframework.com/ionicons/1.5.2/css/ionicons.min.css">
+
+
+
+	<!-- rangeSlider - stefano cudinii y open -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet-panel-layers" crossorigin=""></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.3.1/js/ion.rangeSlider.min.js"></script>
+	<script src="https://unpkg.com/leaflet-panel-layers"></script>
+	<script src="https://unpkg.com/leaflet.wms/dist/leaflet.wms.js"></script>
+
+
+	<!-- complemento awesomeMarker-->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+		integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+	<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+		integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+	<script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></script>
+
+
+
+	<script src="js/leaflet-panel-layers.src.js"></script>
+	<script src="js/leaflet-panel-layers.min.js"></script>
+	<script src="js/leaflet-panel-layers.js"></script>
+	<script src="js/L.Control.Appearance.js"></script>
+	<script src="js/jquery-3.5.1.js"></script>
+	<script src="js/L.Control.HtmlLegend.js"></script>
+	<script src="js/leaflet-search.js"></script>
+	<script src="js/leaflet.awesome-markers.js"></script>
+	<script src="js/leaflet.awesome-markers.min.js"></script>
+	<!-- full screen-->
+	<script src="js/Control.FullScreen.js"></script>
+	<!-- geolocalizacion-->
+	<link rel="stylesheet" href="css/L.Control.Locate.css" />
+	<script src="js/L.Control.Locate.js"></script>
+	<script src="js/L.Control.Locate.min.js"></script>
+	<!-- plugin wms-->
+	<script src="js/leaflet.wms.js"></script>
+	<!-- imprimir -->
+	<script src="js/bundle.js"></script>
+	<script src="js/bundle.js.map"></script>
+
+	<!-- boton para visualization de imagnes -->
+	<script src="js/bottonmodal_img.js"></script>
+
+
+	<!-- en la Carpeta DATA estan los js como capas-->
+	<script type="text/javascript" src="data/fao/prov_contorno.js"></script>
+	<script type="text/javascript" src="data/fao/naf.js"></script>
+	<script type="text/javascript" src="data/fao/proyectos.js"></script>
+	<script type="text/javascript" src="data/fao/poblacion22.js"></script>
+	<script type="text/javascript" src="data/fao/loccensal22.js"></script>
+	<script type="text/javascript" src="data/fao/parajesign.js"></script>
+	<script type="text/javascript" src="data/fao/arsenico_j.js"></script>
+	<script type="text/javascript" src="data/fao/nbi_dpto.js"></script>
+	<script type="text/javascript" src="data/fao/pobindigena2021.js"></script>
+	<script type="text/javascript" src="data/fao/wmsing.js"></script>
+	<script type="text/javascript" src="data/fao/regiones_hidrogeoloicas.js"></script>
+	<script type="text/javascript" src="data/fao/cuencas_sistemas.js"></script>
+	<script type="text/javascript" src="data/fao/agua_red_j.js"></script>
+	<script type="text/javascript" src="data/fao/sitios_j.js"></script>
+	<script type="text/javascript" src="data/fao/esmn_j.js"></script>
+	<script type="text/javascript" src="data/fao/suelos_j.js"></script>
+	<script type="text/javascript" src="data/fao/ecoregion_j.js"></script>
+	<script type="text/javascript" src="data/fao/pto_agri.js"></script>
+	<script type="text/javascript" src="data/fao/areaprotegidas_s.js"></script>
+	<script type="text/javascript" src="data/fao/isohietas_noa.js"></script>
+	<script type="text/javascript" src="data/fao/pto_MODELOS_COSECHA.js"></script>
+
+<!-- <script type="text/javascript" src="js/ppmtemp.js"></script> -->
+<script type="text/javascript" src="js/mapa.js"></script>
+<script type="text/javascript" src="js/panelLayers.js"></script>
+<script type="text/javascript" src="js/wmsconae.js"></script>
+
+
+
+	<style>
+		html,
+		body {
+			margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;  /* elimina el scroll */
+    font-family: Arial, sans-serif;
+		}
+
+		#map {
+			width: 100%;
+			height: 100vh;
+			
+			position: fixed;
+		
+		
+			/* El mapa estará detrás del menú */
+		}
+/* estilos del mapa*/
+
+.legend {
+			padding: 15px 9px;
+			font: 12px/14px Arial;
+			background: rgba(255, 255, 255, 0.918);
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 1px;
+			width: '20vw';
+			height: 'auto';
+		}
+
+		.info {
+			padding: 5px 5px;
+			font: 14px/16px Arial, Helvetica, sans-serif;
+			background: white;
+			background: rgba(255, 255, 255, 0.8);
+			box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+			border-radius: 5px;
+		}
+
+		.info h2 {
+			margin: 0 0 5px;
+			color: #777;
+		}
+
+		.leaflet-tooltip.my-labels {
+			background-color: transparent;
+			border: transparent;
+			box-shadow: none;
+		}
+		/* Estilos CSS para la leyenda */
+		.info.legend {
+			background: white;
+			padding: 10px;
+			border: 1px solid #ccc;
+			border-radius: 5px;
+			font-size: 12px;
+			display: -moz-grid-line;
+		}
+
+		/* Estilos para los círculos de colores en la leyenda */
+		.info.legend i {
+			width: 12px;
+			height: 12px;
+			display: inline-block;
+			border-radius: 50%;
+			margin-right: 5px;
+		}
+
+		/* remove label background elements */
+		.leaflet-tooltip.my-labels {
+			background-color: transparent;
+			border: transparent;
+			box-shadow: none;
+			font-weight: bold;
+			font-size: 30px;
+		}
+
+		.leaflet-tooltip.my-labels {
+			background-color: transparent;
+			border: transparent;
+			box-shadow: none;
+		}
+
+		.Label {
+			background: rgba(223, 223, 223, 0);
+			border: 0px;
+			border-radius: 0px;
+			box-shadow: 0 0px 0px;
+			font: 14px/16px bold, large, Arial, Helvetica;
+		}
+
+		/* fullscreen */
+		.fullscreen-icon {
+			background-image: url(images/icon-fullscreen.png);
+		}
+
+		.leaflet-retina .fullscreen-icon {
+			background-image: url(images/icon-fullscreen-2x.png);
+			background-size: 26px 26px;
+		}
+
+
+
+		/* Estilos para los elementos de la leyenda */
+		.legend-item {
+			display: inline;
+			align-items: center;
+			justify-content: left;
+			flex-direction: column-reverse;
+			/* Organiza los números debajo de los círculos */
+			font-size: 10px;
+			/* Ajusta el tamaño de fuente si es necesario */
+		}
+
+
+		/*Estilo boton impresion */
+		.manualButton {
+			padding: 15px 30px;
+			background-color: #308ba2;
+			margin-left: 40px;
+			text-decoration: none;
+			font-weight: 900;
+			color: white;
+			text-transform: uppercase;
+			transition: background-color .5s;
+			border: none;
+			border-radius: 2px;
+			cursor: pointer;
+		}
+
+		/* estilo de icono */
+		.awesome-marker i {
+			font-size: 18px;
+			margin-top: 8px;
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+		}
+
+		.custom-marker-gsi {
+			background-color: lightgray;
+			/* Fondo gris */
+			border-radius: 10%;
+			/* Fondo redondeado */
+			width: 40px;
+			/* Ancho del fondo */
+			height: 40px;
+			/* Alto del fondo */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.custom-marker-gsi img {
+			width: 35px;
+			/* Ancho del SVG */
+			height: 35px;
+			/* Alto del SVG */
+		}
+
+		.custom-marker-green {
+			background-color: rgb(177, 214, 170);
+			/* Fondo gris */
+			border-radius: 10%;
+			/* Fondo redondeado */
+			width: 40px;
+			/* Ancho del fondo */
+			height: 40px;
+			/* Alto del fondo */
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+
+		.custom-marker-green img {
+			width: 35px;
+			/* Ancho del SVG */
+			height: 35px;
+			/* Alto del SVG */
+		}
+	</style>
+</head>
+
+<body>
+
+
+
+	<div id="map"> </div>
+
+	<div id="modalContainer"></div>
+	<script>
+
+		//mapa//
+		var map = L.map('map', {
+			center: [-23.3029, -65.7994],
+			zoom: 8,
+			zoomControl: false,
+			layers: [argenmap, Localidad, Provincia]
+		});
+
+
+		// Insertando buscador
+		var title = L.control();
+		title.onAdd = function (map) {
+			var div = L.DomUtil.create('div', 'info');
+			div.innerHTML +=
+				'<h2>Buscador <br>de parajes</h2> ';
+			div.style.width = '20vh', // vh para que sea responsive
+				div.style.height = 'auto'; // auto para que sera responsive
+			return div;
+		};
+		title.addTo(map);
+
+		// //buscador de datos. Solo para datos que sean json o geojson
+		var searchControl = new L.Control.Search({
+			layer: Localidad,
+			propertyName: 'fna',
+			circleLocation: false,
+			position: 'topright',
+			collapsed: true
+		});
+		map.addControl(searchControl);
+
+		map.removeLayer(Parajes);
+
+
+		//se le agregan los controles//
+		L.control.zoom({ position: 'topright' }).addTo(map);
+
+
+
+		//geolocalizacion
+		function buscarLocalizacion(e) {
+			L.marker(e.latlng).addTo(map);
+		}
+		function errorLocalizacion(e) {
+			alert("No es posible encontrar su ubicación. Activar la geolocalización.");
+		}
+
+		//geolocalizacion
+		lc = L.control
+			.locate({
+				setView: "untilPanOrZoom",
+				/** Keep the current map zoom level when setting the view and only pan. */
+				keepCurrentZoomLevel: false,
+				/** After activating the plugin by clicking on the icon, zoom to the selected zoom level, even when keepCurrentZoomLevel is true. Set to 'false' to disable this feature. */
+				initialZoomLevel: false,
+				position: 'topright',
+				strings: {
+					title: "Ud. está en este punto",
+					metersUnit: "metros",
+					feetUnit: "feet",
+					popup: "<b>Estacionamiento medido</br> próximo a tu ubicación ({distance} {unit} ).",
+					outsideMapBoundsMsg: "No se encuentran calles con estacionamiento medido en este radio"
+				},
+				locateOptions: {
+					enableHighAccuracy: true,
+					maxZoom: Infinity,
+					watch: true, // if you overwrite this, visualization cannot be updated
+					setView: true // have to set this to false because we have to
+					// do setView manually
+
+				},
+				cacheLocation: true,
+			}).addTo(map);
+
+		/// Paneles layer (js/panelLayer.js) en orden de aparicion
+		map.addControl(panelLayers);
+		map.addControl(panelLayers1);
+
+		// map.addControl(panelLayers3);
+		//map.addControl(panelLayers4);
+		map.addControl(panelLayers2);
+		// map.addControl(panelLayers7);
+		// map.addControl(panelLayersClimatico);
+		//map.addControl(panelLayers5);
+
+		// Llamada a la función para crear la leyenda
+		createLegendLocCab();
+		createLegendSitios();
+		createLegendNAF();
+		createLegendProyectos();
+		createLegendCenso();
+		createLegendPobOriginaria();
+		createLegendDptoArsenico();
+		createLegendNBI();
+		createLegendAguaRed();
+		createLegendRegionHidro();
+		createLegendSMN();
+		createLegendSuelos();
+		createLegendEcorregiones();
+		// map.addControl(htmlLegend1and6);
+		createLegendAgri();
+		createLegendIso();
+
+		// Agregar la leyenda al mapa
+		createLeyendModelos();
+
+
+		//fullsrcrim
+		var fullscreen = L.control.fullscreen({
+			fullscreenControl: true,
+			fullscreenControlOptions: {
+				title: "Mostrar en pantalla completa",
+				titleCancel: "Cancelar el modo pantalla completa",
+				position: 'topright',
+			}
+		}).addTo(map);
+
+		var printer = L.easyPrint({
+			tileLayer: argenmap,
+			sizeModes: ['Current', 'A4Landscape', 'A4Portrait'],
+			filename: 'imagen',
+			exportOnly: true,
+			hideControlContainer: true,
+			position: 'topright'
+		}).addTo(map);
+
+		function manualPrint() {
+			printer.printMap('CurrentSize', 'MyManualPrint')
+		}
+
+
+		// map.addControl(panelLayers6);
+		L.control.scale({ position: 'bottomleft', imperial: false }).addTo(map);
+	</script>
+
+
+</body>
+
+</html>
