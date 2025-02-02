@@ -58,7 +58,7 @@ var overlayMaps = [
 			},
 			{
 				active: false,
-				name: "% de Hogares con Agua de Red (2022)",
+				name: "% Población sin conexión<br>  a red de Agua potable (2022)",
 				layer: AguaRED,
 				transparent: true,
 				opacity: 0.5,
