@@ -58,11 +58,19 @@ var overlayMaps = [
 			},
 			{
 				active: false,
-				name: "% Población sin conexión<br>  a red de Agua potable (2022)",
+				name: "% Pob. sin conexión a red <br>de Agua potable (2022)",
 				layer: AguaRED,
 				transparent: true,
 				opacity: 0.5,
-			},{
+			},
+			{
+				active: false,
+				name: "% Pob. Rural (2022)",
+				layer: RURAL,
+				transparent: true,
+				opacity: 0.5,
+			},
+			{
 				active: false,
 				name: "Pob. con Nucleos de Agricultura Familiar",
 				layer: NucleosAF,

@@ -319,3 +319,12 @@ var ExComSN= L.geoJSON(datamodelo,
 			})},
 	}
 );
+
+//data de  % Poblacion Rural, Agrupada y Dispersa - Del CENSO 2022
+var RURAL = L.geoJSON(rural, {
+	style: styleRural,
+	onEachFeature: function (feature, layer) {
+		var content = popupContentRural(feature);
+		layer.bindPopup(content);
+	}
+});
