@@ -1,427 +1,204 @@
-//USO DOEMSTICO
-var IconUD = L.icon({
-    iconUrl: 'images/hogar.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
 
-});
-// Contenido del popup para Sistema -UD
-function popupContentUD(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha de Agua <br> Consumo Doméstico </h3></div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
+var IconSASN =
+    L.icon({
+        iconUrl: 'images/marcador.png',
+        iconSize: [25, 25],
+        iconAnchor: [17, 42],
+        popupAnchor: [1, -32],
+        className: 'custom-marker-gsi',
+    });
+function popupContentModelos(feature) {
+    var tableHTML = (
+        "<div id='Estilo1' align='center'><h3>Comparación de Modelos Productivos</h3></div>" +
+        "<b> Departamento: </b>" + feature.properties.name + " - " + "<b> Localidad: </b>" + feature.properties.loc + " - " + "<b> Ecorregión: </b>" + feature.properties.NOMBRE_ECO + "<br>" +
+        "<hr class='hrx' align='center' noshade='noshade' size='1' width='100%' />" +
+        "<table border='1' cellspacing='0' cellpadding='3' style='border-collapse: collapse; width: 100%; font-size: 10px;'>" +
+        "<thead align='center'>" +
+        "<tr>" +
+        "<th>Parámetro</th>" +
+        "<th>Uso Doméstico <img src='./images/hogar.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'> </th>" +
+        "<th>Seguridad Alimentaria <br> Sup. Impermeable <br> <img src='./images/huerta.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'> </th>" +
+        "<th>Segeguridad Alimentaria <br> Suelo Natural <br><img src='./images/huerta.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Ganadería <br> Sup. Impermeable <br><img src='./images/ganado.svg' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Ganadería <br> Suelo Natural <br><img src='./images/ganado.svg' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Excedentes <br> Sup. Impermeable <br><img src='./images/vegetales.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Excedentes <br> Suelo Natural <br><img src='./images/vegetales.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "</tr>" +
+        "</thead>" +
+        "<tbody align='center'>" +
+        "<tr><td><b>Precipitación</b></td>" +
+        "<td>" + feature.properties.precipita + " mm</td>" +
+        "<td>" + feature.properties.precipita + " mm</td>" +
+        "<td>" + feature.properties.precipita + " mm</td>" +
+        "<td>" + feature.properties.precipita + " mm</td>" +
+        "<td>" + feature.properties.precipita + " mm</td>" +
+        "<td>" + feature.properties.precipita + " mm</td>" +
+        "<td>" + feature.properties.precipita + " mm</td>" +
+        "</tr>" +
+        "<tr><td><b>Temperatura</b></td>" +
+        "<td>" + feature.properties.TempMedia + " °C</td>" +
+        "<td>" + feature.properties.TempMedia + " °C</td>" +
+        "<td>" + feature.properties.TempMedia + " °C</td>" +
+        "<td>" + feature.properties.TempMedia + " °C</td>" +
+        "<td>" + feature.properties.TempMedia + " °C</td>" +
+        "<td>" + feature.properties.TempMedia + " °C</td>" +
+        "<td>" + feature.properties.TempMedia + " °C</td>" +
+        "</tr>" +
+        "<tr><td><b>Eto Promedio</b></td>" +
+        "<td>" + feature.properties.Etopromedio + " mm</td>" +
+        "<td>" + feature.properties.Etopromedio + " mm</td>" +
+        "<td>" + feature.properties.Etopromedio + " mm</td>" +
+        "<td>" + feature.properties.Etopromedio + " mm</td>" +
+        "<td>" + feature.properties.Etopromedio + " mm</td>" +
+        "<td>" + feature.properties.Etopromedio + " mm</td>" +
+        "<td>" + feature.properties.Etopromedio + " mm</td>" +
+        "</tr>" +
+        "<tr><td><b>Volumen Demandado</b></td>" +
+        "<td>" + feature.properties.UD_VolDem + " m³</td>" +
+        "<td>" + feature.properties.SASI_VolDe + " m³</td>" +
+        "<td>" + feature.properties.SASN_VolDe + " m³</td>" +
+        "<td>" + feature.properties.GSI_VolDem + " m³</td>" +
+        "<td>" + feature.properties.GSN_VolDem + " m³</td>" +
+        "<td>" + feature.properties.ECSI_VolDe + " m³</td>" +
+        "<td>" + feature.properties.ECSN_VolDe + " m³</td>" +
+        "</tr>" +
+        "<tr><td><b>VCU</b></td>" +
+        "<td>" + feature.properties.UD_VCU + "</td>" +
+        "<td>" + feature.properties.SASI_VCU + "</td>" +
+        "<td>" + feature.properties.SASN_VCU + "</td>" +
+        "<td>" + feature.properties.GSI_VCU + "</td>" +
+        "<td>" + feature.properties.GSN_VCU + "</td>" +
+        "<td>" + feature.properties.ECSI_VCU + "</td>" +
+        "<td>" + feature.properties.ECSN_VCU + "</td>" +
+        "</tr>" +
+        "<tr><td><b>Superficie de Captación</b></td>" +
+        "<td>" + feature.properties.UD_SupCap + " ha</td>" +
+        "<td>" + feature.properties.SASI_SupCa + " ha</td>" +
+        "<td>" + feature.properties.SASN_SupCa + " ha</td>" +
+        "<td>" + feature.properties.GSI_SupCap2 + " ha</td>" +
+        "<td>" + feature.properties.GSN_SupCap + " ha</td>" +
+        "<td>" + feature.properties.ECSI_SupCa + " ha</td>" +
+        "<td>" + feature.properties.ECSN_SupCa + " ha</td>" +
+        "</tr>" +
+        "<tr><td><b>Volumen del Reservorio</b></td>" +
+        "<td>" + feature.properties.UD_VolRes + " m³</td>" +
+        "<td>" + feature.properties.SASI_VolRe + " m³</td>" +
+        "<td>" + feature.properties.SASN_VolRe + " m³</td>" +
+        "<td>" + feature.properties.GSI_VolRes + " m³</td>" +
+        "<td>" + feature.properties.GSN_VolRes + " m³</td>" +
+        "<td>" + feature.properties.ECSI_VolRe + " m³</td>" +
+        "<td>" + feature.properties.ECSN_VolRe + " m³</td>" +
+        "</tr>" +
+        "<tr><td><b>Superficie del Reservorio</b></td>" +
+        "<td>" + " N/A " + " </td>" +
+        "<td>" + feature.properties.SASI_SupRe + " m²</td>" +
+        "<td>" + feature.properties.SASN_SupRe + " m²</td>" +
+        "<td>" + feature.properties.GSI_SupRes + " m²</td>" +
+        "<td>" + feature.properties.GSN_SupRes + " m²</td>" +
+        "<td>" + feature.properties.ECSI_SupRe + " m²</td>" +
+        "<td>" + feature.properties.ECSN_SupRe + " m²</td>" +
+        "</tr>" +
+        "<tr><td><b>Profundidad del Reservorio</b></td>" +
+        "<td>" + " N/A " + " </td>" +
+        "<td>" + feature.properties.SASI_ProRe + " m</td>" +
+        "<td>" + feature.properties.SASN_ProRe + " m</td>" +
+        "<td>" + feature.properties.GSI_ProRes + " m</td>" +
+        "<td>" + feature.properties.GSN_ProRes + " m</td>" +
+        "<td>" + feature.properties.ECSI_ProRes + " m</td>" +
+        "<td>" + feature.properties.ECSN_PorRes + " m</td>" +
+        "</tr>" +
+        "</tbody>" +
+        "</table>" +
+        "<br>" +
+        "<button onclick='openModal()' style='padding: 5px 10px; font-size: 12px;'>Ver Imagen</button>" + // Botón para abrir el modal
+        "<button onclick='descargarCSV()' style='padding: 5px 10px; font-size: 12px;'>Descargar CSV</button>" +
 
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.UD_VolDem + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.UD_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.UD_SupCap + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.UD_VolRes + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
         "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
+        "<div id='imageModal' style='display:flex; position:fixed; top:10px; left:20px; width:90%; height:90%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
         "  <div style='position:relative; text-align:center;'>" +
         "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
         "    <img src='./images/uso_domestico.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
         "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
         "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
+        "  </div>"
 
-        "</div>"
-    )
-};
-//Sistema Seguridad Alimentaria - SASI
-var IconSASI = L.icon({
-    iconUrl: 'images/huerta.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
+    );
+    return tableHTML;
 
-});
-// Contenido del popup para Sistema Seguridad Alimentaria - SASI 
-function popupContentSASI(feature) {
-    return (
-        "<div id='Estilo1'><h3>Seguridad Alimentaria <br> Sistema Impermeable </h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.SASI_VolD + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.SASI_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.SASI_SupC + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.SASI_VolR + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/segalimentaria_sup_imp.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-
-        "</div>"
-    )
 };
 
-//Sistema Seguridad Alimentaria - SASN
-var IconSASN =
-    L.icon({
-        iconUrl: 'images/huerta.png',
-        iconSize: [35, 45],
-        iconAnchor: [17, 42],
-        popupAnchor: [1, -32],
-        className: 'custom-marker-green',
+
+function bindPopupWithCSV(feature, layer) {
+    var content = popupContentSASN(feature); // Contenido del popup con la tabla
+    layer.bindPopup(content, { maxWidth: "auto" });
+
+    layer.on("popupopen", function (e) {
+        setTimeout(() => { // Esperar a que el popup se renderice correctamente
+            const popupElement = e.popup._contentNode; // Obtener el nodo del contenido del popup
+            if (!popupElement) {
+                console.error("Error: popupElement no encontrado.");
+                return;
+            }
+
+            const downloadCsvButton = popupElement.querySelector("#downloadCSV");
+            if (!downloadCsvButton) {
+                console.error("Error: Botón de descarga no encontrado en el popup.");
+                return;
+            }
+
+            downloadCsvButton.onclick = function () {
+                descargarCSV(popupElement);
+            };
+        }, 200); // Pequeño retraso para asegurar que el popup se ha renderizado
     });
-// Contenido del popup para Sistema Seguridad Alimentaria - SASN
-function popupContentSASN(feature) {
-    return (
-        "<div id='Estilo1'><h3>Seguridad Alimentaria <br> Suelo Natural </h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.SASN_VolD + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.SASN_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.SASN_SupC + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.SASN_VolR + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/segalimentaria_suelo_desnudo.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-        "</div>"
-    )
-};
-
-//Sist. Ganaderia Suelo Impermeable
-var IconGSI = L.icon({
-    iconUrl: 'images/ganado.svg',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
-
-});
-// Contenido del popup para Ganaderia Suelo Impermeable
-function popupContentGSI(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha para <br> Ganaderia con Suelo Impermable </h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.GSI_VolDe + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.GSI_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.GSI_SupCa + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.GSI_VolRe + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-        " <b> Profundidad del Reservorio : </b>" + feature.properties.GSI_ProRe + " m" + "<br>" +
-        "<i> Profundidad del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/ganaderia_impremeable.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-        "</div>"
-    )
-};
-
-
-
-//Sist. Ganaderia Suelo Natural
-var IconGSN = L.icon({
-    iconUrl: 'images/ganado.svg',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-green',
-});
-// Contenido del popup para Ganaderia Suelo Natural
-function popupContentGSN(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha para <br> Ganaderia con Suelo Natural </h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.GSN_VolDe + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.GSN_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.GSN_SupCa + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.GSN_VolRe + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-        " <b> Profundidad Reservorio : </b>" + feature.properties.GSN_ProRe + " m" + "<br>" +
-        "<i> Profundidad del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/ganaderia_suelodesnudo.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-
-        "</div>"
-    )
-};
-
-
-//Sist. Excedentes con Suelo Impermeable
-var IconESI = L.icon({
-    iconUrl: 'images/vegetales.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
-
-});
-// Contenido del popup Excedente con Suelo Impermable
-function popupContentESI(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha con <br> Excedentes y Sist. Impermeable</h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.ECSI_VolD + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.ECSI_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.ECSI_SupC + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.ECSI_VolR + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-        " <b> VPRofundidad del Reservorio : </b>" + feature.properties.ECSI_ProR + " m" + "<br>" +
-        "<i> Profundidad del reservorio </i>" + "<br>" + "<br>" +
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/exedentes_impermeables.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-        "</div>"
-    )
-};
-
-
-//Sist. Excedentes con Suelo Natural
-var IconESN = L.icon({
-    iconUrl: 'images/vegetales.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-green',
-});
-// Contenido del popup Excedente con Suelo Impermable
-function popupContentESN(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha con <br> Excedentes en Suelos Naturales</h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.ECSN_VolD + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.ECSN_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.ECSN_SupC + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.ECSN_VolR + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-        " <b> Profundidad del Reservorio : </b>" + feature.properties.ECSN_PorR + " m" + "<br>" +
-        "<i> VProfundidad del reservorio </i>" + "<br>" + "<br>" +
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/exedentes_suelonatural.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-
-        "</div>" +
-        "</div>"
-    )
-};
-
-
-function createLeyendModelos() {
-    var legend = L.control({ position: 'bottomright' });
-
-    legend.onAdd = function () {
-        var div = L.DomUtil.create('div', 'info legend');
-        var labels = [];
-        var styles = [
-            { label: 'Uso Doméstico', icon: IconUD.options.iconUrl },
-            { label: 'Seguridad Alimentaria ', icon: IconSASI.options.iconUrl },
-
-            { label: 'Ganadería ', icon: IconGSI.options.iconUrl },
-            // { label: 'Ganadería con Suelo Natural', icon: IconGSN.options.iconUrl },
-            { label: 'Excedentes ', icon: IconESI.options.iconUrl },
-            // { label: 'Excedentes con Suelo Natural', icon: IconESN.options.iconUrl },
-        ];
-
-        // Genera el contenido HTML de la leyenda
-        styles.forEach(function (style) {
-            labels.push(
-                `<div style="display: flex; align-items: center; margin-bottom: 5px;">
-                    <img src="${style.icon}" style="width: 20px; height: 20px; margin-right: 8px;" alt="${style.label}">
-                    <span>${style.label}</span>
-                </div>`
-            );
-        });
-
-        div.innerHTML = labels.join('');
-        return div;
-    };
-
-    // Función para mostrar/ocultar la leyenda
-    function toggleLegend() {
-        // Revisar si alguna de las capas está activa
-        if (map.hasLayer(UsoDom) || map.hasLayer(ExComSI) || map.hasLayer(ExComSN) || map.hasLayer(GanaderiaSN) || map.hasLayer(GanaderiaSI) || map.hasLayer(SASN) || map.hasLayer(SASI)) {
-            // Si alguna capa está activa, agregar la leyenda
-            legend.addTo(map);
-        } else {
-            // Si ninguna capa está activa, remover la leyenda
-            legend.remove();
-        }
-    }
-
-    // Eliminar la leyenda al inicio
-    legend.remove();
-    // Escucha el cambio de estado de la capa
-    map.on('overlayadd overlayremove', toggleLegend);
 }
 
+function descargarCSV(popupElement) {
+    if (!popupElement) {
+        console.error("Error: popupElement es null o undefined.");
+        return;
+    }
 
+    const table = popupElement.querySelector("#popupTable");
+    if (!table) {
+        console.error("Error: No se encontró la tabla en el popup.");
+        return;
+    }
+
+    let csvContent = [];
+    const rows = table.querySelectorAll("tr");
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll("th, td");
+        const rowData = [];
+        cols.forEach(col => rowData.push(col.innerText));
+        csvContent.push(rowData.join(","));
+    });
+
+    const csvString = csvContent.join("\n");
+    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = `tabla_comparativa_${Date.now()}.csv`;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
 
 
 /// DAtos de GeoJson con toda la info
 var datamodelo =
 {
     "type": "FeatureCollection",
-    "name": "pto_MODELOS_COSECHA",
+    "name": "tucuman_modeloscalculados",
     "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
     "features": [
-        { "type": "Feature", "properties": { "id": 5.0, "x": -65.713518710385202, "y": -26.9318344081207, "provincia": "Tucumán", "ecoregion": "Selva de las Yungas", "precipitac": 2000.0, "depto": "Departamento", "name": "Tafí del Valle", "-NOMBRE_ECO": null, "-Localidad cercana": null, "-precipitac": null, "-ppm75": null, "-TempMedia": null, "-Etopromedio": null, "-UD_VolDem": null, "-UD_VCU": null, "-UD_SupCap": null, "-UD_VolRes": null, "-SASI_VolDe": null, "-SASI_VCU": null, "-SASI_SupCa": null, "-SASI_VolRe": null, "-SASI_SupRe": null, "-SASI_ProRe": null, "-SASN_VolDe": null, "-SASN_VCU": null, "-SASN_SupCa": null, "-SASN_VolRe": null, "-SASN_SupRe": null, "-SASN_ProRe": null, "-GSI_VolDem": null, "-GSI_VCU": null, "-GSI_SupCap": null, "-GSI_VolRes": null, "-GSI_SupRes": null, "-GSI_ProRes": null, "-GSN_VolDem": null, "-GSN_VCU": null, "-GSN_SupCap": null, "-GSN_VolRes": null, "-GSN_SupRes": null, "-GSN_ProRes": null, "-ECSI_VolDe": null, "-ECSI_VCU": null, "-ECSI_SupCa": null, "-ECSI_VolRe": null, "-ECSI_SupRe": null, "-ECSI_ProRes": null, "-ECSN_VolDe": null, "-ECSN_VCU": null, "-ECSN_SupCa": null, "-ECSN_VolRe": null, "-ECSN_SupRe": null, "-ECSN_PorRes": null }, "geometry": { "type": "Point", "coordinates": [ -65.713518710385202, -26.9318344081207, 0.0 ] } },
-        { "type": "Feature", "properties": { "id": 6.0, "x": -65.644186246195304, "y": -27.746115721011599, "provincia": "Tucumán", "ecoregion": "Chaco Seco", "precipitac": 500.0, "depto": "Departamento", "name": "La Cocha", "-NOMBRE_ECO": null, "-Localidad cercana": null, "-precipitac": null, "-ppm75": null, "-TempMedia": null, "-Etopromedio": null, "-UD_VolDem": null, "-UD_VCU": null, "-UD_SupCap": null, "-UD_VolRes": null, "-SASI_VolDe": null, "-SASI_VCU": null, "-SASI_SupCa": null, "-SASI_VolRe": null, "-SASI_SupRe": null, "-SASI_ProRe": null, "-SASN_VolDe": null, "-SASN_VCU": null, "-SASN_SupCa": null, "-SASN_VolRe": null, "-SASN_SupRe": null, "-SASN_ProRe": null, "-GSI_VolDem": null, "-GSI_VCU": null, "-GSI_SupCap": null, "-GSI_VolRes": null, "-GSI_SupRes": null, "-GSI_ProRes": null, "-GSN_VolDem": null, "-GSN_VCU": null, "-GSN_SupCap": null, "-GSN_VolRes": null, "-GSN_SupRes": null, "-GSN_ProRes": null, "-ECSI_VolDe": null, "-ECSI_VCU": null, "-ECSI_SupCa": null, "-ECSI_VolRe": null, "-ECSI_SupRe": null, "-ECSI_ProRes": null, "-ECSN_VolDe": null, "-ECSN_VCU": null, "-ECSN_SupCa": null, "-ECSN_VolRe": null, "-ECSN_SupRe": null, "-ECSN_PorRes": null }, "geometry": { "type": "Point", "coordinates": [ -65.644186246195304, -27.746115721011599, 0.0 ] } },
-        { "type": "Feature", "properties": { "id": 7.0, "x": -65.441878054758007, "y": -26.387208651584899, "provincia": "Tucumán", "ecoregion": "Chaco Seco", "precipitac": 500.0, "depto": "Departamento", "name": "Trancas", "-NOMBRE_ECO": null, "-Localidad cercana": null, "-precipitac": null, "-ppm75": null, "-TempMedia": null, "-Etopromedio": null, "-UD_VolDem": null, "-UD_VCU": null, "-UD_SupCap": null, "-UD_VolRes": null, "-SASI_VolDe": null, "-SASI_VCU": null, "-SASI_SupCa": null, "-SASI_VolRe": null, "-SASI_SupRe": null, "-SASI_ProRe": null, "-SASN_VolDe": null, "-SASN_VCU": null, "-SASN_SupCa": null, "-SASN_VolRe": null, "-SASN_SupRe": null, "-SASN_ProRe": null, "-GSI_VolDem": null, "-GSI_VCU": null, "-GSI_SupCap": null, "-GSI_VolRes": null, "-GSI_SupRes": null, "-GSI_ProRes": null, "-GSN_VolDem": null, "-GSN_VCU": null, "-GSN_SupCap": null, "-GSN_VolRes": null, "-GSN_SupRes": null, "-GSN_ProRes": null, "-ECSI_VolDe": null, "-ECSI_VCU": null, "-ECSI_SupCa": null, "-ECSI_VolRe": null, "-ECSI_SupRe": null, "-ECSI_ProRes": null, "-ECSN_VolDe": null, "-ECSN_VCU": null, "-ECSN_SupCa": null, "-ECSN_VolRe": null, "-ECSN_SupRe": null, "-ECSN_PorRes": null }, "geometry": { "type": "Point", "coordinates": [ -65.441878054758007, -26.387208651584899, 0.0 ] } },
-        { "type": "Feature", "properties": { "id": 8.0, "x": -64.895653876155293, "y": -26.6481419870099, "provincia": "Tucumán", "ecoregion": "Selva de las Yungas", "precipitac": 2000.0, "depto": "Departamento", "name": "Burruyacú", "-NOMBRE_ECO": null, "-Localidad cercana": null, "-precipitac": null, "-ppm75": null, "-TempMedia": null, "-Etopromedio": null, "-UD_VolDem": null, "-UD_VCU": null, "-UD_SupCap": null, "-UD_VolRes": null, "-SASI_VolDe": null, "-SASI_VCU": null, "-SASI_SupCa": null, "-SASI_VolRe": null, "-SASI_SupRe": null, "-SASI_ProRe": null, "-SASN_VolDe": null, "-SASN_VCU": null, "-SASN_SupCa": null, "-SASN_VolRe": null, "-SASN_SupRe": null, "-SASN_ProRe": null, "-GSI_VolDem": null, "-GSI_VCU": null, "-GSI_SupCap": null, "-GSI_VolRes": null, "-GSI_SupRes": null, "-GSI_ProRes": null, "-GSN_VolDem": null, "-GSN_VCU": null, "-GSN_SupCap": null, "-GSN_VolRes": null, "-GSN_SupRes": null, "-GSN_ProRes": null, "-ECSI_VolDe": null, "-ECSI_VCU": null, "-ECSI_SupCa": null, "-ECSI_VolRe": null, "-ECSI_SupRe": null, "-ECSI_ProRes": null, "-ECSN_VolDe": null, "-ECSN_VCU": null, "-ECSN_SupCa": null, "-ECSN_VolRe": null, "-ECSN_SupRe": null, "-ECSN_PorRes": null }, "geometry": { "type": "Point", "coordinates": [ -64.895653876155293, -26.6481419870099, 0.0 ] } },
-        { "type": "Feature", "properties": { "id": 28.0, "x": -65.974881618550896, "y": -26.447910215578698, "provincia": "Tucumán", "ecoregion": "Monte de Sierras y Bolsones", "precipitac": 400.0, "depto": "Departamento", "name": "Tafí del Valle", "-NOMBRE_ECO": null, "-Localidad cercana": null, "-precipitac": null, "-ppm75": null, "-TempMedia": null, "-Etopromedio": null, "-UD_VolDem": null, "-UD_VCU": null, "-UD_SupCap": null, "-UD_VolRes": null, "-SASI_VolDe": null, "-SASI_VCU": null, "-SASI_SupCa": null, "-SASI_VolRe": null, "-SASI_SupRe": null, "-SASI_ProRe": null, "-SASN_VolDe": null, "-SASN_VCU": null, "-SASN_SupCa": null, "-SASN_VolRe": null, "-SASN_SupRe": null, "-SASN_ProRe": null, "-GSI_VolDem": null, "-GSI_VCU": null, "-GSI_SupCap": null, "-GSI_VolRes": null, "-GSI_SupRes": null, "-GSI_ProRes": null, "-GSN_VolDem": null, "-GSN_VCU": null, "-GSN_SupCap": null, "-GSN_VolRes": null, "-GSN_SupRes": null, "-GSN_ProRes": null, "-ECSI_VolDe": null, "-ECSI_VCU": null, "-ECSI_SupCa": null, "-ECSI_VolRe": null, "-ECSI_SupRe": null, "-ECSI_ProRes": null, "-ECSN_VolDe": null, "-ECSN_VCU": null, "-ECSN_SupCa": null, "-ECSN_VolRe": null, "-ECSN_SupRe": null, "-ECSN_PorRes": null }, "geometry": { "type": "Point", "coordinates": [ -65.974881618550896, -26.447910215578698, 0.0 ] } }
-        
+    { "type": "Feature", "properties": { "id": 5.0, "x": -65.713518710385202, "y": -26.9318344081207, "provincia": "Tucumán", "ecoregion": "Selva de las Yungas", "precipitac": 2000.0, "depto": "Departamento", "name": "Tafí del Valle", "Provincia": "Tucumán", "NOMBRE_ECO": "Selva de las Yungas", "nam": "Tafí del Valle", "loc": "El Mollar", "precipita": 942.6, "ppm75": 794.8, "TempMedia": 11.3, "Etopromedio": 2.65, "UD_VolDem": 23.9, "UD_VCU": 624, "UD_SupCap": 39, "UD_VolRes": 10.0, "SASI_VolDe": 18.9, "SASI_VCU": 636, "SASI_SupCa": 38, "SASI_VolRe": 18, "SASI_SupRe": 12.0, "SASI_ProRe": 1.5, "SASN_VolDe": 18.9, "SASN_VCU": 199, "SASN_SupCa": 115, "SASN_VolRe": 18, "SASN_SupRe": 9.0, "SASN_ProRe": 2.0, "GSI_VolDem": 81.1, "GSI_VCU": "636", "GSI_SupCap2": "140", "GSI_VolRes": "35", "GSI_SupRes": "17.5", "GSI_ProRes": "2", "GSN_VolDem": 81.1, "GSN_VCU": "199", "GSN_SupCap": "450", "GSN_VolRes": "35", "GSN_SupRes": "17.5", "GSN_ProRes": "2", "ECSI_VolDe": "6316.4", "ECSI_VCU": "636", "ECSI_SupCa": "1.14", "ECSI_VolRe": "5600", "ECSI_SupRe": "2240", "ECSI_ProRes": "2.5", "ECSN_VolDe": "6316.4", "ECSN_VCU": "199", "ECSN_SupCa": "3.63", "ECSN_VolRe": "5570", "ECSN_SupRe": "2228", "ECSN_PorRes": "2.5" }, "geometry": { "type": "Point", "coordinates": [ -65.713518710385202, -26.9318344081207, 0.0 ] } },
+    { "type": "Feature", "properties": { "id": 6.0, "x": -65.644186246195304, "y": -27.746115721011599, "provincia": "Tucumán", "ecoregion": "Chaco Seco", "precipitac": 500.0, "depto": "Departamento", "name": "La Cocha", "Provincia": "Tucumán", "NOMBRE_ECO": "Chaco Seco", "nam": "La Cocha", "loc": "Los Pizarro", "precipita": 819.7, "ppm75": 746.8, "TempMedia": 16.1, "Etopromedio": 3.25, "UD_VolDem": 58.3, "UD_VCU": 585, "UD_SupCap": 100, "UD_VolRes": 23.1, "SASI_VolDe": 55.1, "SASI_VCU": 597, "SASI_SupCa": 115, "SASI_VolRe": 30, "SASI_SupRe": 20.0, "SASI_ProRe": 1.5, "SASN_VolDe": 55.1, "SASN_VCU": 112, "SASN_SupCa": 570, "SASN_VolRe": 30, "SASN_SupRe": 15.0, "SASN_ProRe": 2.0, "GSI_VolDem": 87.6, "GSI_VCU": "597", "GSI_SupCap2": "165", "GSI_VolRes": "40", "GSI_SupRes": "20", "GSI_ProRes": "2", "GSN_VolDem": 87.6, "GSN_VCU": "112", "GSN_SupCap": "870", "GSN_VolRes": "38", "GSN_SupRes": "19", "GSN_ProRes": "2", "ECSI_VolDe": "8258", "ECSI_VCU": "597", "ECSI_SupCa": "1.58", "ECSI_VolRe": "5950", "ECSI_SupRe": "2380", "ECSI_ProRes": "2.5", "ECSN_VolDe": "8258", "ECSN_VCU": "112", "ECSN_SupCa": "8.38", "ECSN_VolRe": "5940", "ECSN_SupRe": "2376", "ECSN_PorRes": "2.5" }, "geometry": { "type": "Point", "coordinates": [ -65.644186246195304, -27.746115721011599, 0.0 ] } },
+    { "type": "Feature", "properties": { "id": 7.0, "x": -65.441878054758007, "y": -26.387208651584899, "provincia": "Tucumán", "ecoregion": "Chaco Seco", "precipitac": 500.0, "depto": "Departamento", "name": "Trancas", "Provincia": "Tucumán", "NOMBRE_ECO": "Chaco Seco", "nam": "Trancas", "loc": "La Higuera", "precipita": 719.0, "ppm75": 654.6, "TempMedia": 15.94, "Etopromedio": 3.25, "UD_VolDem": 37.7, "UD_VCU": 512, "UD_SupCap": 74, "UD_VolRes": 17.5, "SASI_VolDe": 53.8, "SASI_VCU": 524, "SASI_SupCa": 125, "SASI_VolRe": 34, "SASI_SupRe": 22.7, "SASI_ProRe": 1.5, "SASN_VolDe": 53.8, "SASN_VCU": 98, "SASN_SupCa": 630, "SASN_VolRe": 32, "SASN_SupRe": 16.0, "SASN_ProRe": 2.0, "GSI_VolDem": 1434.5, "GSI_VCU": "524", "GSI_SupCap2": "3100", "GSI_VolRes": "740", "GSI_SupRes": "370", "GSI_ProRes": "2", "GSN_VolDem": 1434.5, "GSN_VCU": "98", "GSN_SupCap": "1.64", "GSN_VolRes": "730", "GSN_SupRes": "365", "GSN_ProRes": "2", "ECSI_VolDe": "17017", "ECSI_VCU": "524", "ECSI_SupCa": "3.9", "ECSI_VolRe": "11500", "ECSI_SupRe": "4600", "ECSI_ProRes": "2.5", "ECSN_VolDe": "17017", "ECSN_VCU": "98", "ECSN_SupCa": "19.7", "ECSN_VolRe": "11800", "ECSN_SupRe": "4720", "ECSN_PorRes": "2.5" }, "geometry": { "type": "Point", "coordinates": [ -65.441878054758007, -26.387208651584899, 0.0 ] } },
+    { "type": "Feature", "properties": { "id": 8.0, "x": -64.895653876155293, "y": -26.6481419870099, "provincia": "Tucumán", "ecoregion": "Selva de las Yungas", "precipitac": 2000.0, "depto": "Departamento", "name": "Burruyacú", "Provincia": "Tucumán", "NOMBRE_ECO": "Selva de las Yungas", "nam": "Burrucayú", "loc": "El Barco", "precipita": 881.8, "ppm75": 800.2, "TempMedia": 19.2, "Etopromedio": 3.72, "UD_VolDem": 57.0, "UD_VCU": 628, "UD_SupCap": 92, "UD_VolRes": 24.0, "SASI_VolDe": 56.0, "SASI_VCU": 640, "SASI_SupCa": 110, "SASI_VolRe": 33, "SASI_SupRe": 22.0, "SASI_ProRe": 1.5, "SASN_VolDe": 56.0, "SASN_VCU": 200, "SASN_SupCa": 330, "SASN_VolRe": 33, "SASN_SupRe": 16.5, "SASN_ProRe": 2.0, "GSI_VolDem": 76.0, "GSI_VCU": "640", "GSI_SupCap2": "140", "GSI_VolRes": "37", "GSI_SupRes": "19", "GSI_ProRes": "2", "GSN_VolDem": 76.0, "GSN_VCU": "200", "GSN_SupCap": "440", "GSN_VolRes": "35", "GSN_SupRes": "17.5", "GSN_ProRes": "2", "ECSI_VolDe": "86526", "ECSI_VCU": "640", "ECSI_SupCa": "16.2", "ECSI_VolRe": "70000", "ECSI_SupRe": "28000", "ECSI_ProRes": "2.5", "ECSN_VolDe": "86526", "ECSN_VCU": "200", "ECSN_SupCa": "51.7", "ECSN_VolRe": "70000", "ECSN_SupRe": "28000", "ECSN_PorRes": "2.5" }, "geometry": { "type": "Point", "coordinates": [ -64.895653876155293, -26.6481419870099, 0.0 ] } },
+    { "type": "Feature", "properties": { "id": 28.0, "x": -65.974881618550896, "y": -26.447910215578698, "provincia": "Tucumán", "ecoregion": "Monte de Sierras y Bolsones", "precipitac": 400.0, "depto": "Departamento", "name": "Tafí del Valle", "Provincia": "Tucumán", "NOMBRE_ECO": "Montes de Sierras y Bolsones", "nam": "Tafí del Valle", "loc": "Calimonte", "precipita": 542.7, "ppm75": 479.1, "TempMedia": 15.5, "Etopromedio": 5.06, "UD_VolDem": 23.9, "UD_VCU": 371, "UD_SupCap": 65, "UD_VolRes": 10.0, "SASI_VolDe": 122.7, "SASI_VCU": 383, "SASI_SupCa": 385, "SASI_VolRe": 50, "SASI_SupRe": 33.3, "SASI_ProRe": 1.5, "SASN_VolDe": 122.7, "SASN_VCU": 96, "SASN_SupCa": 1480, "SASN_VolRe": 47, "SASN_SupRe": 23.5, "SASN_ProRe": 2.0, "GSI_VolDem": 81.1, "GSI_VCU": "383", "GSI_SupCap2": "250", "GSI_VolRes": "38", "GSI_SupRes": "19", "GSI_ProRes": "2", "GSN_VolDem": 81.1, "GSN_VCU": "96", "GSN_SupCap": "990", "GSN_VolRes": "37", "GSN_SupRes": "18.5", "GSN_ProRes": "2", "ECSI_VolDe": "14164.8", "ECSI_VCU": "383", "ECSI_SupCa": "3.8", "ECSI_VolRe": "1300", "ECSI_SupRe": "520", "ECSI_ProRes": "2.5", "ECSN_VolDe": "14164.8", "ECSN_VCU": "96", "ECSN_SupCa": "15.2", "ECSN_VolRe": "1250", "ECSN_SupRe": "500", "ECSN_PorRes": "2.5" }, "geometry": { "type": "Point", "coordinates": [ -65.974881618550896, -26.447910215578698, 0.0 ] } }
     ]
-}
+    }
+    

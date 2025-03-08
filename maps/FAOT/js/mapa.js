@@ -15,6 +15,11 @@ var argenmap = L.tileLayer('https://wms.ign.gob.ar/geoserver/gwc/service/tms/1.0
 	maxZoom: 18,
 });
 
+var osmGris = L.tileLayer('https://cartodb-basemaps-a.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png', {
+	attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a>',
+	maxZoom: 18
+});
+
 var Provincia = L.geoJSON(prov, {
 	style: SytleProv
 });
@@ -219,106 +224,106 @@ var DataIso = L.geoJSON(isohietas,
 
 
 /// Puntos de Modelos de Consecha de Agua - A partir de la Tabla de MAtias Lopez
-// Uso domestico
-var UsoDom = L.geoJSON(datamodelo,
-	{
-		// style: styleUD,
-		onEachFeature: function (feature, layer) {
-			var content = popupContentUD(feature);
-			layer.bindPopup(content);
-		},
-		pointToLayer: function(feature, layer) {
-			return L.marker(layer, {
-				icon: IconUD
-			})},
-	}
-);
-// Seguridad Alimentaria con Sistema Impermeble
-var SASI = L.geoJSON(datamodelo,
-	{
+// // Uso domestico
+// var UsoDom = L.geoJSON(datamodelo,
+// 	{
+// 		// style: styleUD,
+// 		onEachFeature: function (feature, layer) {
+// 			var content = popupContentUD(feature);
+// 			layer.bindPopup(content);
+// 		},
+// 		pointToLayer: function(feature, layer) {
+// 			return L.marker(layer, {
+// 				icon: IconUD
+// 			})},
+// 	}
+// );
+// // Seguridad Alimentaria con Sistema Impermeble
+// var SASI = L.geoJSON(datamodelo,
+// 	{
 	
-		onEachFeature: function (feature, layer) {
-			var content = popupContentSASI(feature);
-			layer.bindPopup(content);
-		},
-		pointToLayer: function(feature, layer) {
-			return L.marker(layer, {
-				icon: IconSASI
-			})},
-	}
-);
-// Seguridad Alimentaria con Sistema Suelo Natural
-var SASN = L.geoJSON(datamodelo,
-	{
+// 		onEachFeature: function (feature, layer) {
+// 			var content = popupContentSASI(feature);
+// 			layer.bindPopup(content);
+// 		},
+// 		pointToLayer: function(feature, layer) {
+// 			return L.marker(layer, {
+// 				icon: IconSASI
+// 			})},
+// 	}
+// );
+// // Seguridad Alimentaria con Sistema Suelo Natural
+// var SASN = L.geoJSON(datamodelo,
+// 	{
 	
-		onEachFeature: function (feature, layer) {
-			var content = popupContentSASN(feature);
-			layer.bindPopup(content);
-		},
-		pointToLayer: function(feature, layer) {
-			return L.marker(layer, {
-				icon: IconSASN
-			})},
-	}
-);
-// Sistema Ganaderia con Suelo Impermeable
-var GanaderiaSI = L.geoJSON(datamodelo,
-	{
+// 		onEachFeature: function (feature, layer) {
+// 			var content = popupContentSASN(feature);
+// 			layer.bindPopup(content);
+// 		},
+// 		pointToLayer: function(feature, layer) {
+// 			return L.marker(layer, {
+// 				icon: IconSASN
+// 			})},
+// 	}
+// );
+// // Sistema Ganaderia con Suelo Impermeable
+// var GanaderiaSI = L.geoJSON(datamodelo,
+// 	{
 	
-		onEachFeature: function (feature, layer) {
-			var content = popupContentGSI(feature);
-			layer.bindPopup(content);
-		},
-		pointToLayer: function(feature, layer) {
-			return L.marker(layer, {
-				icon: IconGSI
-			})},
-	}
-);
-// Sistema Ganaderia con Suelo Natural
-var GanaderiaSN= L.geoJSON(datamodelo,
-	{
+// 		onEachFeature: function (feature, layer) {
+// 			var content = popupContentGSI(feature);
+// 			layer.bindPopup(content);
+// 		},
+// 		pointToLayer: function(feature, layer) {
+// 			return L.marker(layer, {
+// 				icon: IconGSI
+// 			})},
+// 	}
+// );
+// // Sistema Ganaderia con Suelo Natural
+// var GanaderiaSN= L.geoJSON(datamodelo,
+// 	{
 	
-		onEachFeature: function (feature, layer) {
-			var content = popupContentGSN(feature);
-			layer.bindPopup(content);
-		},
-		pointToLayer: function(feature, layer) {
-			return L.marker(layer, {
-				icon: IconGSN
-			})},
-	}
-);
+// 		onEachFeature: function (feature, layer) {
+// 			var content = popupContentGSN(feature);
+// 			layer.bindPopup(content);
+// 		},
+// 		pointToLayer: function(feature, layer) {
+// 			return L.marker(layer, {
+// 				icon: IconGSN
+// 			})},
+// 	}
+// );
 
-// Sistema Excedentes con Suelo Impermeble
-var ExComSI= L.geoJSON(datamodelo,
-	{
+// // Sistema Excedentes con Suelo Impermeble
+// var ExComSI= L.geoJSON(datamodelo,
+// 	{
 	
-		onEachFeature: function (feature, layer) {
-			var content = popupContentESI(feature);
-			layer.bindPopup(content);
-		},
-		pointToLayer: function(feature, layer) {
-			return L.marker(layer, {
-				icon: IconESI
-			})},
-	}
-);
+// 		onEachFeature: function (feature, layer) {
+// 			var content = popupContentESI(feature);
+// 			layer.bindPopup(content);
+// 		},
+// 		pointToLayer: function(feature, layer) {
+// 			return L.marker(layer, {
+// 				icon: IconESI
+// 			})},
+// 	}
+// );
 
-// Sistema Excedentes con Suelo Natural
-var ExComSN= L.geoJSON(datamodelo,
-	{
+// // Sistema Excedentes con Suelo Natural
+// var ExComSN= L.geoJSON(datamodelo,
+// 	{
 	
-		onEachFeature: function (feature, layer) {
-			var content = popupContentESN(feature);
-			layer.bindPopup(content);
-		},
-		pointToLayer: function(feature, layer) {
-			return L.marker(layer, {
-				icon: IconESN
-			})},
-	}
-);
+// 		onEachFeature: function (feature, layer) {
+// 			var content = popupContentESN(feature);
+// 			layer.bindPopup(content);
+// 		},
+// 		pointToLayer: function(feature, layer) {
+// 			return L.marker(layer, {
+// 				icon: IconESN
+// 			})},
+// 	}
+// );
 
 //data de  % Poblacion Rural, Agrupada y Dispersa - Del CENSO 2022
 var RURAL = L.geoJSON(rural, {
@@ -327,4 +332,38 @@ var RURAL = L.geoJSON(rural, {
 		var content = popupContentRural(feature);
 		layer.bindPopup(content);
 	}
+});
+
+// Modelo de cosecha de agua
+var ModelosTotal = L.geoJSON(datamodelo, {
+    onEachFeature: function (feature, layer) {
+        var content = popupContentModelos(feature);
+        layer.bindPopup(content, {
+            maxWidth: "auto",  // Permite que el popup se ajuste al contenido
+            autoPan: true,      // Asegura que el popup se mantenga en vista
+            keepInView: true    // Evita que el popup se salga del mapa
+        });
+    },
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: IconSASN
+        });
+    }
+});
+
+// Modelo productivo
+var ModelosProductivo = L.geoJSON(datamodeloProductivo, {
+    onEachFeature: function (feature, layer) {
+        var content = popupContentModelos(feature);
+        layer.bindPopup(content, {
+            maxWidth: "auto",  // Permite que el popup se ajuste al contenido
+            autoPan: true,      // Asegura que el popup se mantenga en vista
+            keepInView: true    // Evita que el popup se salga del mapa
+        });
+    },
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, {
+            icon: IconModPrductivo
+        });
+    }
 });

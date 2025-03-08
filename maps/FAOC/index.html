@@ -100,8 +100,10 @@
 	<script type="text/javascript" src="data/fao/pto_agri.js"></script>
 	<script type="text/javascript" src="data/fao/areaprotegidas_s.js"></script>
 	<script type="text/javascript" src="data/fao/isohietas_noa.js"></script>
-	<script type="text/javascript" src="data/fao/pto_MODELOS_COSECHA.js"></script>
+	<!-- <script type="text/javascript" src="data/fao/pto_MODELOS_COSECHA.js"></script> -->
+	<script type="text/javascript" src="data/fao/pto_MODELOS_COSECHA_sintentico.js"></script>
 	<script type="text/javascript" src="data/fao/rural.js"></script>
+	<script type="text/javascript" src="data/fao/pto_MODELOS_Productivos.js"></script>
 
 	<!-- <script type="text/javascript" src="js/ppmtemp.js"></script> -->
 	<script type="text/javascript" src="js/mapa.js"></script>
@@ -255,7 +257,7 @@
 		}
 
 		.custom-marker-gsi {
-			background-color: lightgray;
+			background-color: rgb(250, 249, 249);
 			/* Fondo gris */
 			border-radius: 10%;
 			/* Fondo redondeado */
@@ -312,7 +314,7 @@
 		center: [-27.8359537, -66.947897],
 		zoom: 7,
 		zoomControl: false,
-		layers: [argenmap, Localidad, Provincia]
+		layers: [ osmGris, Localidad, Provincia]
 	});
 
 	// Insertando buscador
