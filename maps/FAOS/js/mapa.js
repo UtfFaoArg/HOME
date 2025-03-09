@@ -352,7 +352,7 @@ var ModelosTotal = L.geoJSON(datamodelo, {
 // Modelo productivo
 var ModelosProductivo = L.geoJSON(datamodeloProductivo, {
     onEachFeature: function (feature, layer) {
-        var content = popupContentModelos(feature);
+        var content = popupContentModProductivos(feature);
         layer.bindPopup(content, {
             maxWidth: "auto",  // Permite que el popup se ajuste al contenido
             autoPan: true,      // Asegura que el popup se mantenga en vista

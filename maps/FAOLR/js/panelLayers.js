@@ -176,7 +176,7 @@ var overlayMaps = [
 			{
 				active: false,
 				name: 'Modelos Productivos',
-				layer: ModelosTotal,
+				layer: ModelosProductivo,
 				transparent: true,
 				opacity: 0.5,
 			},
