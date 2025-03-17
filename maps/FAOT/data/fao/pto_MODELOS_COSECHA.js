@@ -27,13 +27,13 @@ function popupContentModelos(feature) {
         "</thead>" +
         "<tbody align='center'>" +
         "<tr><td><b>Precipitación</b></td>" +
-        "<td>" + feature.properties.precipita + " mm</td>" +
-        "<td>" + feature.properties.precipita + " mm</td>" +
-        "<td>" + feature.properties.precipita + " mm</td>" +
-        "<td>" + feature.properties.precipita + " mm</td>" +
-        "<td>" + feature.properties.precipita + " mm</td>" +
-        "<td>" + feature.properties.precipita + " mm</td>" +
-        "<td>" + feature.properties.precipita + " mm</td>" +
+        "<td>" + feature.properties.precipitac + " mm</td>" +
+        "<td>" + feature.properties.precipitac + " mm</td>" +
+        "<td>" + feature.properties.precipitac + " mm</td>" +
+        "<td>" + feature.properties.precipitac + " mm</td>" +
+        "<td>" + feature.properties.precipitac + " mm</td>" +
+        "<td>" + feature.properties.precipitac + " mm</td>" +
+        "<td>" + feature.properties.precipitac + " mm</td>" +
         "</tr>" +
         "<tr><td><b>Temperatura</b></td>" +
         "<td>" + feature.properties.TempMedia + " °C</td>" +
