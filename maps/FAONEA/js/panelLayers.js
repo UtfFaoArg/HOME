@@ -192,10 +192,17 @@ var infoAmb = [
 				transparent: true,
 				opacity: 0.5,
 			},
+			// {
+			// 	active: false,
+			// 	name: "Isohietas",
+			// 	layer: DataIso,
+			// 	transparent: true,
+			// 	opacity: 0.5,
+			// },
 			{
 				active: false,
 				name: "Isohietas",
-				layer: DataIso,
+				layer: IsoHieta,
 				transparent: true,
 				opacity: 0.5,
 			},
