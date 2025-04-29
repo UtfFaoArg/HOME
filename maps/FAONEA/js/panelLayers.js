@@ -63,13 +63,13 @@ var overlayMaps = [
 				transparent: true,
 				opacity: 0.5,
 			},
-			{
-				active: false,
-				name: "% Pob. Rural (2022)",
-				layer: RURAL,
-				transparent: true,
-				opacity: 0.5,
-			},
+			// {
+			// 	active: false,
+			// 	name: "% Pob. Rural (2022)",
+			// 	layer: RURAL,
+			// 	transparent: true,
+			// 	opacity: 0.5,
+			// },
 			{
 				active: false,
 				name: "Pob. con Nucleos de Agricultura Familiar",
@@ -114,61 +114,61 @@ var overlayMaps = [
 			
 		]
 	},
-	{
-		group: "Modelos de Calculados ",
-		collapsed: true,
-		layers: [
-			{
-				active: false,
-				name: 'Modelos Productivos',
-				layer: ModelosProductivo,
-				transparent: true,
-				opacity: 0.5,
-			},
-			{
-				active: false,
-				name: 'Modelos de Cosecha de Agua',
-				layer: ModelosTotal,
-				transparent: true,
-				opacity: 0.5,
-			},
-			// {
-			// 	active: false,
-			// 	name:'<span>Seguridad Alimentaria <br> con Suelo Natural <img src="./images/huerta.png" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
-			// 	layer: SASN,
-			// 	transparent: true,
-			// 	opacity: 0.5,
-			// },
-			// {
-			// 	active: false,
-			// 	name: '<span>Ganadería con <br> Sist. Impermeable <img src="./images/ganado.svg" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
-			// 	layer: GanaderiaSI,
-			// 	transparent: true,
-			// 	opacity: 0.5,
-			// },
-			// {
-			// 	active: false,
-			// 	name: '<span>Ganadería con <br> Suelo Natural<img src="./images/ganado.svg" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
-			// 	layer: GanaderiaSN,
-			// 	transparent: true,
-			// 	opacity: 0.5,
-			// },
-			// {
-			// 	active: false,
-			// 	name:'<span>Excedente de Comercialización <br> con Sist. Impermeable<img src="./images/vegetales.png" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
-			// 	layer: ExComSI,
-			// 	transparent: true,
-			// 	opacity: 0.5,
-			// },
-			// {
-			// 	active: false,
-			// 	name: '<span>Excedente de Comercialización <br> con Suelo Natural  <img src="./images/vegetales.png" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
-			// 	layer: ExComSN,
-			// 	transparent: true,
-			// 	opacity: 0.5,
-			// },
-		]
-	},
+	// {
+	// 	group: "Modelos de Calculados ",
+	// 	collapsed: true,
+	// 	layers: [
+	// 		{
+	// 			active: false,
+	// 			name: 'Modelos Productivos',
+	// 			layer: ModelosProductivo,
+	// 			transparent: true,
+	// 			opacity: 0.5,
+	// 		},
+	// 		{
+	// 			active: false,
+	// 			name: 'Modelos de Cosecha de Agua',
+	// 			layer: ModelosTotal,
+	// 			transparent: true,
+	// 			opacity: 0.5,
+	// 		},
+	// 		// {
+	// 		// 	active: false,
+	// 		// 	name:'<span>Seguridad Alimentaria <br> con Suelo Natural <img src="./images/huerta.png" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
+	// 		// 	layer: SASN,
+	// 		// 	transparent: true,
+	// 		// 	opacity: 0.5,
+	// 		// },
+	// 		// {
+	// 		// 	active: false,
+	// 		// 	name: '<span>Ganadería con <br> Sist. Impermeable <img src="./images/ganado.svg" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
+	// 		// 	layer: GanaderiaSI,
+	// 		// 	transparent: true,
+	// 		// 	opacity: 0.5,
+	// 		// },
+	// 		// {
+	// 		// 	active: false,
+	// 		// 	name: '<span>Ganadería con <br> Suelo Natural<img src="./images/ganado.svg" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
+	// 		// 	layer: GanaderiaSN,
+	// 		// 	transparent: true,
+	// 		// 	opacity: 0.5,
+	// 		// },
+	// 		// {
+	// 		// 	active: false,
+	// 		// 	name:'<span>Excedente de Comercialización <br> con Sist. Impermeable<img src="./images/vegetales.png" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
+	// 		// 	layer: ExComSI,
+	// 		// 	transparent: true,
+	// 		// 	opacity: 0.5,
+	// 		// },
+	// 		// {
+	// 		// 	active: false,
+	// 		// 	name: '<span>Excedente de Comercialización <br> con Suelo Natural  <img src="./images/vegetales.png" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
+	// 		// 	layer: ExComSN,
+	// 		// 	transparent: true,
+	// 		// 	opacity: 0.5,
+	// 		// },
+	// 	]
+	// },
 	
 	
 ];
@@ -199,13 +199,13 @@ var infoAmb = [
 			// 	transparent: true,
 			// 	opacity: 0.5,
 			// },
-			{
-				active: false,
-				name: "Isohietas",
-				layer: IsoHieta,
-				transparent: true,
-				opacity: 0.5,
-			},
+			// {
+			// 	active: false,
+			// 	name: "Isohietas",
+			// 	layer: IsoHieta,
+			// 	transparent: true,
+			// 	opacity: 0.5,
+			// },
 			{
 				active: false,
 				name: "Ecorregiones",
