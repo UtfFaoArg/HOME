@@ -50,9 +50,9 @@ function popupContentSuelos(feature) {
       "<hr class='hrx' style='color: #ef7d26;' align='left' noshade='noshade' size='0.5' width='100%' />" +
       "<div id='Estilo3a'>" +
       "<b> Indice de Productividad : </b>" + feature.properties.IND_PRODC + "<br>" +
-      "<b> Tipo de Suelo : </b>" + feature.properties.TIPO_UC + "<br>" +
+      "<b> Tipo de Suelo : </b>" + feature.properties.tipo_uc + "<br>" +
         "<br>" +
-        "<b> Nombre de Suelo : </b>" + feature.properties.ORDEN_SUE1 + "<br>" +
+        "<b> Nombre de Suelo : </b>" + feature.properties.orden_sue1 + "<br>" +
         "<br>" +
       "</div>"
   );

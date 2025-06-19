@@ -21,7 +21,7 @@ function popupContentProyectos(feature) {
         "<b> Descripcion del Proyecto: </b>" + feature.properties.NOMBRE_PROY + "<br>" +
          "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +    
         "<br>" +
-        "<b><i> Fuente de Información:  </b> <br>" +
+       // "<b><i> Fuente de Información:  </b> <br>" +
         "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
         "</div>"
     )

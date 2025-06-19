@@ -3,9 +3,9 @@ function popupContentDptoArsenico(feature) {
         "<div id='Estilo1'><h3>Descripción</h3></div>" +
         "<hr class='hrx' style='color: #ef7d26;' align='left' noshade='noshade' size='1' width='100%' />" +
         "<div id='Estilo3a'>" +
-        "<b> Descripción : </b>" + feature.properties.arsenico.charAt(0).toUpperCase() + feature.properties.arsenico.slice(1).toLowerCase() + "<br>" +
+         "<b> Departamento : </b>" + feature.properties.departamen + "<br>" +
+        "<b> Nivel de Arsénico : </b>" + feature.properties.arsenico.charAt(0).toUpperCase() + feature.properties.arsenico.slice(1).toLowerCase() +  "<br>" +
         "<br>" +
-
         "<b> Fuente : </b> Elaborado a partir del datos del Ministerio de Salud (2006) y del Instituto Tecnológico Buenos Aires (2020)" + "<br>" +
        
 

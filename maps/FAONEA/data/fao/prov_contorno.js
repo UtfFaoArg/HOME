@@ -1,7 +1,27 @@
+// function SytleProv(feature) {
+// var color;
+//     if (feature.properties.nam === "Chaco") { color = '#ff1201';
+        
+//     } else if (feature.properties.nam === "Misiones") { color = '#d9ff01';
+        
+//     }
+//     else {
+//     color = '#ccc'; // Color por defecto si no coincide ninguna categoría
+//   }
+
+//     return {
+//         fillColor: color,
+//         weight: 3,
+//         opacity: 0.7,
+//         color: '#000',
+//         dashArray: '2, 4',
+//         fillOpacity: 0.9
+//     };
+// }
 function SytleProv(feature) {
     return {
         fillColor: '#525252',
-        weight: 3,
+        weight: 1,
         opacity: 1,
         color: 'black',
         dashArray: '2, 4',

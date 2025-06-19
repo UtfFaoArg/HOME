@@ -1,7 +1,7 @@
 // Contenido del popup para cada feature
 function popupContentCenso(feature) {
     return (
-        "<div id='Estilo1'><h3>DETALLE</h3></div>" +
+        "<div id='Estilo1'><h3>Descripción</h3></div>" +
         "<hr class='hrx' style='color: #ef7d26;' align='left' noshade='noshade' size='0.5' width='100%' />" +
         "<div id='Estilo3a'>" +
         "<b> Provincia : </b>" + feature.properties.provincia + "<br>" +

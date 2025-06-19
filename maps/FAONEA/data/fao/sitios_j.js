@@ -14,8 +14,8 @@ function popupContentSitios(feature) {
         "<div id='Estilo1'><h3>Descripción</h3></div>" +
         "<hr class='hrx' style='color: #ef7d26;' align='left' noshade='noshade' size='1' width='100%' />" +
         "<div id='Estilo3a'>" +
-        "<b> Número de identificación: </b>" + feature.properties.id + "<br>" +
-        "<b> Provincia: </b>" + feature.properties.nom_pcia + "<br>" +
+       // "<b> Número de identificación: </b>" + feature.properties.id + "<br>" +
+      //  "<b> Provincia: </b>" + feature.properties.nom_pcia + "<br>" +
         "<b> Departamento: </b>" + feature.properties.nom_depto + "<br>" +
         "<b> Localidad: </b>" + feature.properties.fna + "<br>" +
         //"<b> Ecorregión: </b>" + feature.properties.ecoregion + "<br>" +

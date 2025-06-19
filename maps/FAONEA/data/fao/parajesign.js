@@ -23,6 +23,7 @@ function popupContentLocSec(feature) {
     )
 };
 
+
 var locSec = 
 {
     "type": "FeatureCollection",
@@ -1953,5 +1954,4 @@ var locSec =
     { "type": "Feature", "properties": { "gid": 9339, "cod_pcia": "54", "nom_pcia": "Misiones", "cod_depto": "54119", "nom_depto": "25 de Mayo", "cod_ase": "54119A02", "fna": "Aristóbulo Chico", "tipo_asent": "Paraje", "cod_aglo": null, "nom_aglo": null, "cod_agl": "540525", "nom_agl": "25 de Mayo", "lat_gd": "-27.281065", "long_gd": "-54.754318", "lat_gs": "-27º16'52\"", "long_gs": "-54º45'16\"", "fdc": "INDEC. ACA" }, "geometry": { "type": "MultiPoint", "coordinates": [ [ -54.754317648885987, -27.281065326297217 ] ] } }
     ]
     }
-    
     
