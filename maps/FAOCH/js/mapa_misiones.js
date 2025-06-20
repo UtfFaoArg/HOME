@@ -82,6 +82,16 @@ var AguaRED = L.geoJSON({
 	onEachFeature: (f, layer) => layer.bindPopup(popupContentAguaRed(f))
 });
 
+//data de  % Poblacion Rural, Agrupada y Dispersa - Del CENSO 2022
+var RURAL = L.geoJSON({
+	...rural,
+	features: rural.features.filter(f => f.properties.provincia === "Misiones")
+	}, {
+	style: styleRural,
+	onEachFeature: (f, layer) => layer.bindPopup(popupContentRural(f))
+});
+
+
 //data de Nueclos de Agricultura faminial (extraido del Atlas de AF  - Horacio)
 var NucleosAF = L.geoJSON({
 	...naf,
@@ -131,13 +141,13 @@ var EstacionesSMN = L.geoJSON({
 });
 
 
-var Ecoregion = L.geoJSON(ecorregion,
-	{
+var Ecoregion = L.geoJSON({
+	...ecorregion,
+		features: ecorregion.features.filter(f => f.properties.name === "Misiones")
+}, {
+	
 		style: styleEco,
-		onEachFeature: function (feature, layer) {
-			var content = popupContentEcoregion(feature);
-			layer.bindPopup(content);
-		}
+		onEachFeature:  (f, layer) => layer.bindPopup(popupContentEcoregion(f))
 	}
 );
 
@@ -158,14 +168,22 @@ var DeptoArsenico = L.geoJSON({
 		onEachFeature:  (f, layer) => layer.bindPopup(popupContentDptoArsenico(f))
 	});
 
+var AreasProtegidas = L.geoJSON({
+	...areasprotegidas,
+	features: areasprotegidas.features.filter(f => f.properties.provincia === "Misiones")
+}, {
+		style: styleAreas,
+		onEachFeature:  (f, layer) =>  layer.bindPopup(popupContentAreas(f))
+	}
+);
+
 ///Daptos del IGN
-var RegionesHirdo = L.geoJSON(RegionHidrogeografica,
-	{
+var RegionesHirdo = L.geoJSON({
+	...RegionHidrogeografica,
+	features: RegionHidrogeografica.features.filter( f => f.properties.provincia === "Misiones")
+	}, {
 		style: styleRegionHidro,
-		onEachFeature: function (feature, layer) {
-			var content = popupContentRegionHidro(feature);
-			layer.bindPopup(content);
-		}
+		onEachFeature: (f, layer) =>  layer.bindPopup(popupContentRegionHidro(f))
 	}
 );
 
@@ -182,15 +200,6 @@ var CuencasHidro = L.geoJSON(cuencasSist,
 
 
 
-var AreasProtegidas = L.geoJSON(areasprotegidas,
-	{
-		style: styleAreas,
-		onEachFeature: function (feature, layer) {
-			var content = popupContentAreas(feature);
-			layer.bindPopup(content);
-		}
-	}
-);
 
 
 var DataIso = L.geoJSON(isohietas,
@@ -311,14 +320,6 @@ var DataIso = L.geoJSON(isohietas,
 // 	}
 // );
 
-//data de  % Poblacion Rural, Agrupada y Dispersa - Del CENSO 2022
-var RURAL = L.geoJSON(rural, {
-	style: styleRural,
-	onEachFeature: function (feature, layer) {
-		var content = popupContentRural(feature);
-		layer.bindPopup(content);
-	}
-});
 
 // Modelo de cosecha de agua
 var ModelosTotal = L.geoJSON(datamodelo, {

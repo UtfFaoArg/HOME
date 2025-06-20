@@ -63,13 +63,13 @@ var overlayMaps = [
 				transparent: true,
 				opacity: 0.5,
 			},
-			// {
-			// 	active: false,
-			// 	name: "% Pob. Rural (2022)",
-			// 	layer: RURAL,
-			// 	transparent: true,
-			// 	opacity: 0.5,
-			// },
+			{
+				active: false,
+				name: "% Pob. Rural (2022)",
+				layer: RURAL,
+				transparent: true,
+				opacity: 0.5,
+			},
 			{
 				active: false,
 				name: "Pob. con Nucleos de Agricultura Familiar",
