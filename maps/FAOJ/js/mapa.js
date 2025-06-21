@@ -117,35 +117,35 @@ var DeptoArsenico = L.geoJSON(dptoArsenico,
 ///Daptos del IGN
 var RegionesHirdo = L.geoJSON(RegionHidrogeografica,
 	{
-		 style: styleRegionHidro,
-		 onEachFeature: function (feature, layer) {
+		style: styleRegionHidro,
+		onEachFeature: function (feature, layer) {
 			var content = popupContentRegionHidro(feature);
 			layer.bindPopup(content);
-		}  
-	}  
+		}
+	}
 );
 
 ///Dapto IGN
 var CuencasHidro = L.geoJSON(cuencasSist,
 	// {
 	// 	 style: styleRegionHidro,
-		
+
 	// }
 );
 
 var SitiosSeleccionados = L.geoJSON(sitios,
 	{
 		pointToLayer: function (feature, latlng) {
-			return L.circleMarker(latlng, MarkerOptionsSitios ,
+			return L.circleMarker(latlng, MarkerOptionsSitios,
 			);
 
 		},
- 	style: MarkerOptionsSitios ,
-	 onEachFeature: function (feature, layer) {
-		var content = popupContentSitios(feature);
-		layer.bindPopup(content);
-	}
-		
+		style: MarkerOptionsSitios,
+		onEachFeature: function (feature, layer) {
+			var content = popupContentSitios(feature);
+			layer.bindPopup(content);
+		}
+
 	}
 );
 
@@ -156,12 +156,12 @@ var EstacionesSMN = L.geoJSON(SMN,
 			);
 
 		},
- 	style: MarkerOptionsSMN,
-	 onEachFeature: function (feature, layer) {
-		var content = popupContentSMN(feature);
-		layer.bindPopup(content);
-	}
-		
+		style: MarkerOptionsSMN,
+		onEachFeature: function (feature, layer) {
+			var content = popupContentSMN(feature);
+			layer.bindPopup(content);
+		}
+
 	}
 );
 
@@ -171,7 +171,7 @@ var SuelosTipo = L.geoJSON(suelos,
 		onEachFeature: function (feature, layer) {
 			var content = popupContentSuelos(feature);
 			layer.bindPopup(content);
-		}  
+		}
 	}
 );
 
@@ -181,23 +181,23 @@ var Ecoregion = L.geoJSON(ecorregion,
 		onEachFeature: function (feature, layer) {
 			var content = popupContentEcoregion(feature);
 			layer.bindPopup(content);
-		}  
+		}
 	}
 );
 
 var PuntosAgri = L.geoJSON(agri,
 	{
 		pointToLayer: function (feature, latlng) {
-			return L.circleMarker(latlng, MarkerOptionsAgri ,
+			return L.circleMarker(latlng, MarkerOptionsAgri,
 			);
 
 		},
- 	style: MarkerOptionsAgri ,
-	 onEachFeature: function (feature, layer) {
-		var content = popupContentAgri(feature);
-		layer.bindPopup(content);
-	}
-		
+		style: MarkerOptionsAgri,
+		onEachFeature: function (feature, layer) {
+			var content = popupContentAgri(feature);
+			layer.bindPopup(content);
+		}
+
 	}
 );
 var AreasProtegidas = L.geoJSON(areasprotegidas,
@@ -206,7 +206,7 @@ var AreasProtegidas = L.geoJSON(areasprotegidas,
 		onEachFeature: function (feature, layer) {
 			var content = popupContentAreas(feature);
 			layer.bindPopup(content);
-		}  
+		}
 	}
 );
 
@@ -217,7 +217,7 @@ var DataIso = L.geoJSON(isohietas,
 		onEachFeature: function (feature, layer) {
 			var content = popupContentIso(feature);
 			layer.bindPopup(content);
-		}  
+		}
 	}
 );
 
@@ -240,7 +240,7 @@ var DataIso = L.geoJSON(isohietas,
 // // Seguridad Alimentaria con Sistema Impermeble
 // var SASI = L.geoJSON(datamodelo,
 // 	{
-	
+
 // 		onEachFeature: function (feature, layer) {
 // 			var content = popupContentSASI(feature);
 // 			layer.bindPopup(content);
@@ -254,7 +254,7 @@ var DataIso = L.geoJSON(isohietas,
 // // Seguridad Alimentaria con Sistema Suelo Natural
 // var SASN = L.geoJSON(datamodelo,
 // 	{
-	
+
 // 		onEachFeature: function (feature, layer) {
 // 			var content = popupContentSASN(feature);
 // 			layer.bindPopup(content);
@@ -268,7 +268,7 @@ var DataIso = L.geoJSON(isohietas,
 // // Sistema Ganaderia con Suelo Impermeable
 // var GanaderiaSI = L.geoJSON(datamodelo,
 // 	{
-	
+
 // 		onEachFeature: function (feature, layer) {
 // 			var content = popupContentGSI(feature);
 // 			layer.bindPopup(content);
@@ -282,7 +282,7 @@ var DataIso = L.geoJSON(isohietas,
 // // Sistema Ganaderia con Suelo Natural
 // var GanaderiaSN= L.geoJSON(datamodelo,
 // 	{
-	
+
 // 		onEachFeature: function (feature, layer) {
 // 			var content = popupContentGSN(feature);
 // 			layer.bindPopup(content);
@@ -297,7 +297,7 @@ var DataIso = L.geoJSON(isohietas,
 // // Sistema Excedentes con Suelo Impermeble
 // var ExComSI= L.geoJSON(datamodelo,
 // 	{
-	
+
 // 		onEachFeature: function (feature, layer) {
 // 			var content = popupContentESI(feature);
 // 			layer.bindPopup(content);
@@ -312,7 +312,7 @@ var DataIso = L.geoJSON(isohietas,
 // // Sistema Excedentes con Suelo Natural
 // var ExComSN= L.geoJSON(datamodelo,
 // 	{
-	
+
 // 		onEachFeature: function (feature, layer) {
 // 			var content = popupContentESN(feature);
 // 			layer.bindPopup(content);
@@ -335,34 +335,104 @@ var RURAL = L.geoJSON(rural, {
 
 // Modelo de cosecha de agua
 var ModelosTotal = L.geoJSON(datamodelo, {
-    onEachFeature: function (feature, layer) {
-        var content = popupContentModelos(feature);
-        layer.bindPopup(content, {
-            maxWidth: "auto",  // Permite que el popup se ajuste al contenido
-            autoPan: true,      // Asegura que el popup se mantenga en vista
-            keepInView: true    // Evita que el popup se salga del mapa
-        });
-    },
-    pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {
-            icon: IconSASN
+	pointToLayer: function (feature, latlng) {
+		return L.circleMarker(latlng, IconSASN);
+	},
+	onEachFeature: function (feature, layer) {
+        // Genera el contenido HTML del popup usando tu función popupContentModelos
+        const popupContent = popupContentModelos(feature);
+
+        // Vincula el popup a la capa
+        layer.bindPopup(popupContent, { maxWidth: "auto" });
+
+        // Adjunta el listener para cuando el popup se abre
+        layer.on("popupopen", function (e) {
+            console.log("Popup de Modelos de Cosecha abierto.");
+
+            const popup = e.popup;
+            if (!popup) {
+                console.error("Error: e.popup no está definido.");
+                return;
+            }
+
+            const popupElement = popup.getElement();
+            if (!popupElement) {
+                console.error("Error: popupElement no encontrado usando popup.getElement().");
+                return;
+            }
+            console.log("popupElement encontrado:", popupElement);
+
+            // Busca el botón de descarga del CSV usando el ID específico para esta capa
+            const downloadCsvButton = popupElement.querySelector("#downloadCSVCosecha"); // <--- CAMBIO AQUÍ
+            if (!downloadCsvButton) {
+                console.error("Error: Botón de descarga con ID #downloadCSVCosecha no encontrado en el popup.");
+                return;
+            }
+            console.log("Botón de descarga encontrado:", downloadCsvButton);
+
+            // Adjunta el manejador de eventos click usando addEventListener
+            downloadCsvButton.addEventListener('click', function () {
+                console.log("Botón Descargar CSV clickeado para Modelos de Cosecha.");
+                // Llama a la NUEVA función de descarga para esta capa
+                descargarCSVCosecha(popupElement, feature.properties); // <--- CAMBIO AQUÍ
+            });
         });
     }
+	
 });
 
 // Modelo productivo
 var ModelosProductivo = L.geoJSON(datamodeloProductivo, {
-    onEachFeature: function (feature, layer) {
-        var content = popupContentModProductivos(feature);
-        layer.bindPopup(content, {
-            maxWidth: "auto",  // Permite que el popup se ajuste al contenido
-            autoPan: true,      // Asegura que el popup se mantenga en vista
-            keepInView: true    // Evita que el popup se salga del mapa
-        });
-    },
-    pointToLayer: function (feature, latlng) {
-        return L.marker(latlng, {
-            icon: IconModPrductivo
-        });
-    }
+	pointToLayer: function (feature, latlng) {
+		return L.circleMarker(latlng, IconModPrductivo
+		);
+	},
+
+	onEachFeature: function (feature, layer) {
+		var popupContent = popupContentModProductivos(feature);
+		// Vincula el popup a la capa
+		layer.bindPopup(popupContent, { maxWidth: "auto" });
+
+		layer.on("popupopen", function (e) {
+			// console.log("Popup de Modelos Productivos abierto."); // Nuevo log para diferenciar
+
+			// Obtén la instancia del popup de Leaflet
+			const popup = e.popup;
+			if (!popup) {
+				console.error("Error: e.popup no está definido.");
+				return;
+			}
+
+			// Obtén el elemento DOM raíz del popup (como en tu código que funciona)
+			const popupElement = popup.getElement();
+			if (!popupElement) {
+				console.error("Error: popupElement no encontrado usando popup.getElement().");
+				return;
+			}
+			// console.log("popupElement encontrado:", popupElement);
+
+			// Busca el botón de descarga del CSV dentro del popup
+			const downloadCsvButton = popupElement.querySelector("#downloadCSV");
+			if (!downloadCsvButton) {
+				console.error("Error: Botón de descarga con ID #downloadCSV no encontrado en el popup.");
+				return;
+			}
+			// console.log("Botón de descarga encontrado:", downloadCsvButton);
+
+			// Adjunta el manejador de eventos click usando addEventListener
+			downloadCsvButton.addEventListener('click', function () {
+				// console.log("Botón Descargar CSV clickeado para Modelos Productivos.");
+				// Llama a la función descargarCSV, pasándole el popupElement
+				descargarCSV(popupElement, feature.properties);
+			});
+		});
+	}
+
+	//     layer.bindPopup(content, {
+	//         maxWidth: "auto",  // Permite que el popup se ajuste al contenido
+	//         autoPan: true,      // Asegura que el popup se mantenga en vista
+	//         keepInView: true    // Evita que el popup se salga del mapa
+	//     });
+	// },
+
 });
