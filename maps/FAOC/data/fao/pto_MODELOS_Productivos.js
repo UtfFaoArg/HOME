@@ -1,18 +1,20 @@
 //Sistema Seguridad Alimentaria - SASN
 var IconModPrductivo =
-    L.icon({
-        iconUrl: 'images/marcador.png',
-        iconSize: [25, 25],
-        iconAnchor: [17, 42],
-        popupAnchor: [1, -32],
-        className: 'custom-marker-green',
-    });
+{
+    radius: 12,
+    fillColor: "#fd5a5a",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
+
     function popupContentModProductivos(feature) {
         var tableHTML = (
             "<div id='Estilo1' align='center'><h3>Comparación de Modelos Productivos</h3></div>" +
             "<b> Departamento: </b>" + feature.properties.name + " - " + "<b> Localidad: </b>" + feature.properties.loc + " - " + "<b> Ecorregión: </b>" + feature.properties.NOMBRE_ECO + "<br>" +
             "<br>" +
-            "<table border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse; width: 100%; font-size: 11px;'>" +
+            "<table id='popupTable' border='1' cellspacing='0' cellpadding='5' style='border-collapse: collapse; width: 100%; font-size: 11px;'>" +
             "<thead align='center'>" +
             "<tr>" +
             "<th>Modelo</th>" +
@@ -78,7 +80,7 @@ var IconModPrductivo =
             "</i>" +
             "</div>" +
             "<br>" +
-            "<button onclick='descargarCSV()' style='padding: 5px 10px; font-size: 12px;'>Descargar CSV</button>" +
+            "<button id='downloadCSV' style='padding: 5px 10px; font-size: 12px;'>Descargar CSV</button>" +
     
             "</div>" +
     
@@ -88,63 +90,86 @@ var IconModPrductivo =
         return tableHTML;
     }
 
-
-function bindPopupWithCSV(feature, layer) {
-    var content = popupContentModProductivos(feature); // Contenido del popup con la tabla
-    layer.bindPopup(content, { maxWidth: "auto" });
-
-    layer.on("popupopen", function (e) {
-        setTimeout(() => { // Esperar a que el popup se renderice correctamente
-            const popupElement = e.popup._contentNode; // Obtener el nodo del contenido del popup
-            if (!popupElement) {
-                console.error("Error: popupElement no encontrado.");
-                return;
-            }
-
-            const downloadCsvButton = popupElement.querySelector("#downloadCSV");
-            if (!downloadCsvButton) {
-                console.error("Error: Botón de descarga no encontrado en el popup.");
-                return;
-            }
-
-            downloadCsvButton.onclick = function () {
-                descargarCSV(popupElement);
-            };
-        }, 200); // Pequeño retraso para asegurar que el popup se ha renderizado
-    });
-}
-
-function descargarCSV(popupElement) {
+// La función descargarCSV() se mantiene igual
+function descargarCSV(popupElement, properties) {
+    console.log("Iniciando descargarCSV...");
     if (!popupElement) {
-        console.error("Error: popupElement es null o undefined.");
+        // console.error("Error: popupElement es null o undefined en descargarCSV.");
         return;
+    }
+    // Verificar si las propiedades se pasaron (útil para depuración)
+    if (!properties) {
+        // console.error("Error: Las propiedades del feature (Departamento, Localidad, Ecorregión) no se pasaron a descargarCSV.");
+        properties = {}; // Si no se pasaron, usar un objeto vacío para evitar errores posteriores
     }
 
-    const table = popupElement.querySelector("#popupTable");
+    const table = popupElement.querySelector("#popupTable"); // Asegúrate que tu tabla tiene id="popupTable"
     if (!table) {
-        console.error("Error: No se encontró la tabla en el popup.");
+        // console.error("Error: No se encontró la tabla en el popup en descargarCSV.");
         return;
     }
+    // console.log("Tabla encontrada:", table);
 
     let csvContent = [];
+    // AÑADIR LAS NUEVAS LÍNEAS DE CABECERA AQUÍ, antes de los datos de la tabla
+    csvContent.push(`Departamento: ${properties.name || ''}`);
+    csvContent.push(`Localidad: ${properties.loc || ''}`);
+    csvContent.push(`Ecorregion: ${properties.NOMBRE_ECO || ''}`);
+    csvContent.push(""); // Línea vacía para separar la información de la tabla (opcional, puedes quitarla)
+
+    // codigo para tomar los datos de la tabla
     const rows = table.querySelectorAll("tr");
+    // console.log("Número de filas encontradas:", rows.length);
+
+    if (rows.length === 0) {
+        // console.warn("No se encontraron filas en la tabla para exportar.");
+
+
+    }
 
     rows.forEach(row => {
         const cols = row.querySelectorAll("th, td");
         const rowData = [];
-        cols.forEach(col => rowData.push(col.innerText));
+        cols.forEach(col => {
+            let text = col.innerText;
+
+            // Limpieza de texto (la que ya funciona bien)
+            text = text.replace(/m³/g, 'm3'); // Reemplazar 'm³' por 'm3'
+            text = text.replace(/m²/g, 'm2'); // Reemplazar 'm²' por 'm2'
+            text = text.replace(/\^/g, ''); // Eliminar cualquier carácter `^` suelto
+            text = text.trim(); // Eliminar espacios al principio/final
+
+            // Manejo de comillas y saltos de línea para CSV
+            if (text.includes(',') || text.includes('\n') || text.includes('"')) {
+                text = `"${text.replace(/"/g, '""')}"`; // Escapar comillas dobles y encerrar
+            }
+
+            rowData.push(text);
+        });
         csvContent.push(rowData.join(","));
     });
 
     const csvString = csvContent.join("\n");
-    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    // console.log("Contenido CSV generado:\n", csvString);
+
+    if (csvString.trim().length === 0) {
+        // console.warn("El contenido CSV está vacío o solo contiene espacios en blanco. No se creará el archivo.");
+        return;
+    }
+
+    const blob = new Blob(["\uFEFF" + csvString], { type: "text/csv;charset=utf-8;" }); // <--- CAMBIO CLAVE AQUÍ
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `tabla_comparativa_${Date.now()}.csv`;
+    link.download = `Modelos_Productivos_${properties.name || ''}_${properties.loc || ''}` // <--- CAMBIO AQUÍ
+        .replace(/\s+/g, '_')       // Reemplaza espacios por guiones bajos
+        .replace(/[^\w\-]/g, '');   // Elimina caracteres no válidos para archivos
 
+
+    // console.log("Intentando descargar archivo:", link.download);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    console.log("Proceso de descarga completado (se hizo click en el enlace).");
 }
 
 /// DAtos de GeoJson con toda la info

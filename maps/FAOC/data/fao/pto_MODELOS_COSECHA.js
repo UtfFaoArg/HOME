@@ -1,125 +1,29 @@
-//USO DOEMSTICO
-var IconUD = L.icon({
-    iconUrl: 'images/hogar.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
-
-});
-// Contenido del popup para Sistema -UD
-function popupContentUD(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha de Agua <br> Consumo Doméstico </h3></div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.UD_VolDem + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.UD_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.UD_SupCap + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.UD_VolRes + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/uso_domestico.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-
-        "</div>"
-    )
+//Sistema Seguridad Alimentaria - SASN
+var IconSASN =
+{
+    radius: 12,
+    fillColor: "#1365fc",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
 };
-//Sistema Seguridad Alimentaria - SASI
-var IconSASI = L.icon({
-    iconUrl: 'images/huerta.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
-
-});
-// Contenido del popup para Sistema Seguridad Alimentaria - SASI 
-function popupContentSASI(feature) {
-    return (
-        "<div id='Estilo1'><h3>Seguridad Alimentaria <br> Sistema Impermeable </h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.SASI_VolDe + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.SASI_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.SASI_SupCa + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.SASI_VolRe + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-        " <b> Superficie del Reservorio : </b>" + feature.properties.SASI_SupRe + " m2" + "<br>" +
-        "<i> Superficie del reservorio </i>" + "<br>" + "<br>" +
-        " <b> Profundidad del Reservorio : </b>" + feature.properties.SASI_ProRe + " m" + "<br>" +
-        "<i> Profundidad promedio del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/segalimentaria_sup_imp.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-
-        "</div>"
-    )
-};
-function popupContentSASN(feature) {
+function popupContentModelos(feature) {
     var tableHTML = (
-        "<div id='Estilo1' align='center'><h3>Comparación de Modelos Productivos</h3></div>" +
+        "<div id='Estilo1' align='center'><h3>Comparación de Modelos de Cosecha de Agua</h3></div>" +
         "<b> Departamento: </b>" + feature.properties.nam + " - " + "<b> Localidad: </b>" + feature.properties.loc + " - " + "<b> Ecorregión: </b>" + feature.properties.NOMBRE_ECO + "<br>" +
         "<hr class='hrx' align='center' noshade='noshade' size='1' width='100%' />" +
-        "<table border='1' cellspacing='0' cellpadding='3' style='border-collapse: collapse; width: 100%; font-size: 10px;'>" +
+        "<table id='popupTableCosecha' border='1' cellspacing='0' cellpadding='3' style='border-collapse: collapse; width: 100%; font-size: 10px;'>" +
         "<thead align='center'>" +
         "<tr>" +
         "<th>Parámetro</th>" +
-        "<th><span>Uso Doméstico <img src='./images/hogar.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></span> </th>" +
-        "<th>Seg. Alimentaria <br> Sup. Impermeable </th>" +
-        "<th>Seg. Alimentaria <br> Suelo Natural</th>" +
-        "<th>Ganadería <br> Sup. Impermeable</th>" +
-        "<th>Ganadería <br> Suelo Natural</th>" +
-        "<th>Excedentes <br> Sup. Impermeable</th>" +
-        "<th>Excedentes <br> Suelo Natural</th>" +
+        "<th>Uso Doméstico <img src='./images/hogar.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'> </th>" +
+        "<th>Seguridad Alimentaria <br> Sup. Impermeable <br> <img src='./images/huerta.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'> </th>" +
+        "<th>Segeguridad Alimentaria <br> Suelo Natural <br><img src='./images/huerta.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Ganadería <br> Sup. Impermeable <br><img src='./images/ganado.svg' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Ganadería <br> Suelo Natural <br><img src='./images/ganado.svg' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Excedentes <br> Sup. Impermeable <br><img src='./images/vegetales.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
+        "<th>Excedentes <br> Suelo Natural <br><img src='./images/vegetales.png' alt=Ícono style=width:16px; height:16px; margin-left: 5px;'></th>" +
         "</tr>" +
         "</thead>" +
         "<tbody align='center'>" +
@@ -172,8 +76,8 @@ function popupContentSASN(feature) {
         "<td>" + feature.properties.UD_SupCap + " ha</td>" +
         "<td>" + feature.properties.SASI_SupCa + " ha</td>" +
         "<td>" + feature.properties.SASN_SupCa + " ha</td>" +
-        "<td>" + feature.properties.GSI_SupCa + " ha</td>" +
-        "<td>" + feature.properties.GSN_SupCa + " ha</td>" +
+        "<td>" + feature.properties.GSI_SupCap2 + " ha</td>" +
+        "<td>" + feature.properties.GSN_SupCap + " ha</td>" +
         "<td>" + feature.properties.ECSI_SupCa + " ha</td>" +
         "<td>" + feature.properties.ECSN_SupCa + " ha</td>" +
         "</tr>" +
@@ -187,7 +91,7 @@ function popupContentSASN(feature) {
         "<td>" + feature.properties.ECSN_VolRe + " m³</td>" +
         "</tr>" +
         "<tr><td><b>Superficie del Reservorio</b></td>" +
-        "<td>" + feature.properties.UD_VolRes + " m²</td>" +
+        "<td>" + " N/A " + " </td>" +
         "<td>" + feature.properties.SASI_SupRe + " m²</td>" +
         "<td>" + feature.properties.SASN_SupRe + " m²</td>" +
         "<td>" + feature.properties.GSI_SupRes + " m²</td>" +
@@ -196,7 +100,7 @@ function popupContentSASN(feature) {
         "<td>" + feature.properties.ECSN_SupRe + " m²</td>" +
         "</tr>" +
         "<tr><td><b>Profundidad del Reservorio</b></td>" +
-        "<td>" + feature.properties.UD_SupCap + " m</td>" +
+        "<td>" + " N/A "+ " </td>" +
         "<td>" + feature.properties.SASI_ProRe + " m</td>" +
         "<td>" + feature.properties.SASN_ProRe + " m</td>" +
         "<td>" + feature.properties.GSI_ProRes + " m</td>" +
@@ -207,318 +111,101 @@ function popupContentSASN(feature) {
         "</tbody>" +
         "</table>" +
         "<br>" +
-        "<button onclick='descargarCSV()' style='padding: 5px 10px; font-size: 12px;'>Descargar CSV</button>"
+        "<button onclick='openModal()' style='padding: 5px 10px; font-size: 12px;'>Ver Imagen</button>" + // Botón para abrir el modal
+       "<button id='downloadCSVCosecha' style='padding: 5px 10px; font-size: 12px;'>Descargar CSV</button>" +
+        
+        "</div>" +
+        "<div id='imageModal' style='display:flex; position:fixed; top:10px; left:20px; width:90%; height:90%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
+        "  <div style='position:relative; text-align:center;'>" +
+        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
+        "    <img src='./images/uso_domestico.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
+        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
+        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
+        "  </div>"
+
     );
     return tableHTML;
-};
-//Sistema Seguridad Alimentaria - SASN
-var IconSASN =
-    L.icon({
-        iconUrl: 'images/huerta.png',
-        iconSize: [35, 45],
-        iconAnchor: [17, 42],
-        popupAnchor: [1, -32],
-        className: 'custom-marker-green',
-    });
-// Contenido del popup para Sistema Seguridad Alimentaria - SASN
-// function popupContentSASN(feature) {
-//     return (
-//         "<div id='Estilo1'><h3>Seguridad Alimentaria <br> Suelo Natural </h3> </div>" +
-//         "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-//         "<div id='Estilo3a'>" +
-//         "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-//         "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-//         "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-//         "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-//         "<b> Volumen Consumo : </b>" + feature.properties.SASN_VolD + " m3" + "<br>" +
-//         "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-//         " <b> VCU : </b>" + feature.properties.SASN_VCU + " Litros/m2.año" + "<br>" +
-//         "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-//         "<b> Superficie de Captación : </b>" + feature.properties.SASN_SupC + " m2" + "<br>" +
-//         "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-//         " <b> Volumen Reservorio : </b>" + feature.properties.SASN_VolR + " m3" + "<br>" +
-//         "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-//         //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-//         // "<br>" +
-//         // "<b><i> Fuente de Información:  </b> <br>" +
-//         // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-//         "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-//         "</div>" +
-//         "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-//         "  <div style='position:relative; text-align:center;'>" +
-//         "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-//         "    <img src='./images/segalimentaria_suelo_desnudo.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-//         "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-//         "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-//         "  </div>" +
-//         " <br>" +
-//         "</div>"
-//     )
-// };
-
-//Sist. Ganaderia Suelo Impermeable
-var IconGSI = L.icon({
-    iconUrl: 'images/ganado.svg',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
-
-});
-// Contenido del popup para Ganaderia Suelo Impermeable
-function popupContentGSI(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha para <br> Ganaderia con Suelo Impermable </h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.GSI_VolDe + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.GSI_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.GSI_SupCa + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.GSI_VolRe + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-        " <b> Profundidad del Reservorio : </b>" + feature.properties.GSI_ProRe + " m" + "<br>" +
-        "<i> Profundidad del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/ganaderia_impremeable.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-        "</div>"
-    )
+    
 };
 
-
-
-//Sist. Ganaderia Suelo Natural
-var IconGSN = L.icon({
-    iconUrl: 'images/ganado.svg',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-green',
-});
-// Contenido del popup para Ganaderia Suelo Natural
-function popupContentGSN(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha para <br> Ganaderia con Suelo Natural </h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.GSN_VolDe + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.GSN_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.GSN_SupCa + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.GSN_VolRe + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-        " <b> Profundidad Reservorio : </b>" + feature.properties.GSN_ProRe + " m" + "<br>" +
-        "<i> Profundidad del reservorio </i>" + "<br>" + "<br>" +
-
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/ganaderia_suelodesnudo.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-
-        "</div>"
-    )
-};
-
-
-//Sist. Excedentes con Suelo Impermeable
-var IconESI = L.icon({
-    iconUrl: 'images/vegetales.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-gsi',
-
-});
-// Contenido del popup Excedente con Suelo Impermable
-function popupContentESI(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha con <br> Excedentes y Sist. Impermeable</h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.ECSI_VolD + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.ECSI_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.ECSI_SupC + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.ECSI_VolR + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-        " <b> VPRofundidad del Reservorio : </b>" + feature.properties.ECSI_ProR + " m" + "<br>" +
-        "<i> Profundidad del reservorio </i>" + "<br>" + "<br>" +
-        //  "<b> Cantidad de Beneficiario: </b>" + feature.properties.CANTIDAD_D + "<br>" +
-        // "<br>" +
-        // "<b><i> Fuente de Información:  </b> <br>" +
-        // "<b> Fecha de actualización:  </b> Mayo 2024  </i>" +
-
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/exedentes_impermeables.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-        "</div>"
-    )
-};
-
-
-//Sist. Excedentes con Suelo Natural
-var IconESN = L.icon({
-    iconUrl: 'images/vegetales.png',
-    iconSize: [35, 45],
-    iconAnchor: [17, 42],
-    popupAnchor: [1, -32],
-    className: 'custom-marker-green',
-});
-// Contenido del popup Excedente con Suelo Impermable
-function popupContentESN(feature) {
-    return (
-        "<div id='Estilo1'><h3>Modelo de Cosecha con <br> Excedentes en Suelos Naturales</h3> </div>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<div id='Estilo3a'>" +
-        "<b> Precipitación media : </b>" + feature.properties.precipitac + " mm" + "<br>" + "<br>" +
-
-        "<b> Precipitación calculada :</b>" + feature.properties.ppm75 + " mm" + "<br>" +
-        "<i> Precipitación con el 75% de probabilidad de ocurrencia</i>" +
-        "<hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />" +
-        "<b> Volumen Consumo : </b>" + feature.properties.ECSN_VolD + " m3" + "<br>" +
-        "<i> Volumen total consumido para uso doméstico al año </i>" + "<br>" + "<br>" +
-
-        " <b> VCU : </b>" + feature.properties.ECSN_VCU + " Litros/m2.año" + "<br>" +
-        "<i> Volumen captado unitario por cada metro cuadrado de superficie impermeable</i>" + "<br>" + "<br>" +
-
-        "<b> Superficie de Captación : </b>" + feature.properties.ECSN_SupC + " m2" + "<br>" +
-        "<i> Superficie de captación total </i>" + "<br>" + "<br>" +
-
-        " <b> Volumen Reservorio : </b>" + feature.properties.ECSN_VolR + " m3" + "<br>" +
-        "<i> Volumen adoptado del reservorio </i>" + "<br>" + "<br>" +
-
-        " <b> Profundidad del Reservorio : </b>" + feature.properties.ECSN_PorR + " m" + "<br>" +
-        "<i> VProfundidad del reservorio </i>" + "<br>" + "<br>" +
-        "<button onclick='openModal()'>Ver Imagen</button>" + // Botón para abrir el modal
-        "</div>" +
-        "<div id='imageModal' style='display:flex; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
-        "  <div style='position:relative; text-align:center;'>" +
-        "<div style='overflow:hidden; width:90%; max-height:80%; margin:auto; position:relative;'>" +
-        "    <img src='./images/exedentes_suelonatural.png' alt='Imagen' id='zoomImage' style='max-width:100%; cursor:zoom-in;' onclick='enableZoom()'/>" +
-        "    <br><button onclick='closeModal()' style='margin-top:10px;'>Cerrar</button>" +
-        "<button onclick='toggleFullscreen()' style='margin-top:10px; '>Pantalla Completa</button>" +
-        "  </div>" +
-        " <br>" +
-
-        "</div>" +
-        "</div>"
-    )
-};
-
-
-function createLeyendModelos() {
-    var legend = L.control({ position: 'bottomright' });
-
-    legend.onAdd = function () {
-        var div = L.DomUtil.create('div', 'info legend');
-        var labels = [];
-        var styles = [
-            { label: 'Uso Doméstico', icon: IconUD.options.iconUrl },
-            { label: 'Seguridad Alimentaria ', icon: IconSASI.options.iconUrl },
-
-            { label: 'Ganadería ', icon: IconGSI.options.iconUrl },
-            // { label: 'Ganadería con Suelo Natural', icon: IconGSN.options.iconUrl },
-            { label: 'Excedentes ', icon: IconESI.options.iconUrl },
-            // { label: 'Excedentes con Suelo Natural', icon: IconESN.options.iconUrl },
-        ];
-
-        // Genera el contenido HTML de la leyenda
-        styles.forEach(function (style) {
-            labels.push(
-                `<div style="display: flex; align-items: center; margin-bottom: 5px;">
-                    <img src="${style.icon}" style="width: 20px; height: 20px; margin-right: 8px;" alt="${style.label}">
-                    <span>${style.label}</span>
-                </div>`
-            );
-        });
-
-        div.innerHTML = labels.join('');
-        return div;
-    };
-
-    // Función para mostrar/ocultar la leyenda
-    function toggleLegend() {
-        // Revisar si alguna de las capas está activa
-        if (map.hasLayer(UsoDom) || map.hasLayer(ExComSI) || map.hasLayer(ExComSN) || map.hasLayer(GanaderiaSN) || map.hasLayer(GanaderiaSI) || map.hasLayer(SASN) || map.hasLayer(SASI)) {
-            // Si alguna capa está activa, agregar la leyenda
-            legend.addTo(map);
-        } else {
-            // Si ninguna capa está activa, remover la leyenda
-            legend.remove();
-        }
+// Nueva función específica para la descarga CSV de la capa de Cosecha de Agua
+function descargarCSVCosecha(popupElement, properties) {
+    console.log("Iniciando descargarCSVCosecha...");
+    if (!popupElement) {
+        console.error("Error: popupElement es null o undefined en descargarCSVCosecha.");
+        return;
+    }
+    if (!properties) {
+        console.error("Error: Las propiedades del feature (Departamento, Localidad, Ecorregión) no se pasaron a descargarCSVCosecha.");
+        properties = {};
     }
 
-    // Eliminar la leyenda al inicio
-    legend.remove();
-    // Escucha el cambio de estado de la capa
-    map.on('overlayadd overlayremove', toggleLegend);
+    // Usar el ID de la tabla específica para esta capa
+    const table = popupElement.querySelector("#popupTableCosecha"); // <--- CAMBIO AQUÍ
+    if (!table) {
+        console.error("Error: No se encontró la tabla en el popup en descargarCSVCosecha.");
+        return;
+    }
+    console.log("Tabla encontrada:", table);
+
+    let csvContent = [];
+
+    // Añadir información de Departamento, Localidad, Ecorregión
+    csvContent.push(`Departamento: ${properties.name || ''}`);
+    csvContent.push(`Localidad: ${properties.loc || ''}`);
+    csvContent.push(`Ecorregión: ${properties.NOMBRE_EC || ''}`); // <--- CAMBIO AQUÍ: NOMBRE_EC
+    csvContent.push(""); // Línea vacía para separación
+
+    // Iterar sobre cada fila para construir el contenido CSV
+    const rows = table.querySelectorAll("tr");
+    console.log("Número de filas de la tabla encontradas:", rows.length);
+
+    rows.forEach(row => {
+        const cols = row.querySelectorAll("th, td");
+        const rowData = [];
+        cols.forEach(col => {
+            let text = col.innerText;
+
+            // Limpieza de texto (la misma lógica que ya funciona bien)
+            text = text.replace(/m³/g, 'm3');
+            text = text.replace(/m²/g, 'm2');
+            text = text.replace(/°C/g, 'C'); // Reemplazar °C por C
+            text = text.replace(/\^/g, '');
+            text = text.trim();
+
+            // Manejo de comillas y saltos de línea para CSV
+            if (text.includes(',') || text.includes('\n') || text.includes('"')) {
+                text = `"${text.replace(/"/g, '""')}"`;
+            }
+
+            rowData.push(text);
+        });
+        csvContent.push(rowData.join(","));
+    });
+
+    const csvString = csvContent.join("\n");
+    console.log("Contenido CSV generado (final para Cosecha de Agua):\n", csvString);
+
+    if (csvString.trim().length === 0) {
+        console.warn("El contenido CSV está vacío o solo contiene espacios en blanco. No se creará el archivo.");
+        return;
+    }
+
+    const blob = new Blob(["\uFEFF" + csvString], { type: "text/csv;charset=utf-8;" }); // <--- CAMBIO CLAVE AQUÍ
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    // Cambiar el nombre del archivo para que sea específico de esta capa
+    link.download = `Modelos_de_Cosecha_Agua_${properties.name || ''}_${properties.loc || ''}` // <--- CAMBIO AQUÍ
+        .replace(/\s+/g, '_')       // Reemplaza espacios por guiones bajos
+        .replace(/[^\w\-]/g, '');   // Elimina caracteres no válidos para archivos
+
+
+    console.log("Intentando descargar archivo:", link.download);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    console.log("Proceso de descarga completado (se hizo click en el enlace).");
 }
-
-
 
 
 /// DAtos de GeoJson con toda la info
