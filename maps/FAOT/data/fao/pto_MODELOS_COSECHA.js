@@ -1,18 +1,19 @@
 
 var IconSASN =
-    L.icon({
-        iconUrl: 'images/marcador.png',
-        iconSize: [25, 25],
-        iconAnchor: [17, 42],
-        popupAnchor: [1, -32],
-        className: 'custom-marker-gsi',
-    });
+{
+    radius: 12,
+    fillColor: "#1365fc",
+    color: "#000",
+    weight: 1,
+    opacity: 1,
+    fillOpacity: 0.8
+};
 function popupContentModelos(feature) {
     var tableHTML = (
         "<div id='Estilo1' align='center'><h3>Comparación de Modelos Productivos</h3></div>" +
         "<b> Departamento: </b>" + feature.properties.name + " - " + "<b> Localidad: </b>" + feature.properties.loc + " - " + "<b> Ecorregión: </b>" + feature.properties.NOMBRE_ECO + "<br>" +
         "<hr class='hrx' align='center' noshade='noshade' size='1' width='100%' />" +
-        "<table border='1' cellspacing='0' cellpadding='3' style='border-collapse: collapse; width: 100%; font-size: 10px;'>" +
+        "<table id='popupTableCosecha' border='1' cellspacing='0' cellpadding='3' style='border-collapse: collapse; width: 100%; font-size: 10px;'>" +
         "<thead align='center'>" +
         "<tr>" +
         "<th>Parámetro</th>" +
@@ -111,7 +112,7 @@ function popupContentModelos(feature) {
         "</table>" +
         "<br>" +
         "<button onclick='openModal()' style='padding: 5px 10px; font-size: 12px;'>Ver Imagen</button>" + // Botón para abrir el modal
-        "<button onclick='descargarCSV()' style='padding: 5px 10px; font-size: 12px;'>Descargar CSV</button>" +
+        "<button id='downloadCSVCosecha' style='padding: 5px 10px; font-size: 12px;'>Descargar CSV</button>" +
 
         "</div>" +
         "<div id='imageModal' style='display:flex; position:fixed; top:10px; left:20px; width:90%; height:90%; background:rgba(0,0,0,0.8); justify-content:center; align-items:center;'>" +
@@ -128,63 +129,85 @@ function popupContentModelos(feature) {
 };
 
 
-function bindPopupWithCSV(feature, layer) {
-    var content = popupContentSASN(feature); // Contenido del popup con la tabla
-    layer.bindPopup(content, { maxWidth: "auto" });
-
-    layer.on("popupopen", function (e) {
-        setTimeout(() => { // Esperar a que el popup se renderice correctamente
-            const popupElement = e.popup._contentNode; // Obtener el nodo del contenido del popup
-            if (!popupElement) {
-                console.error("Error: popupElement no encontrado.");
-                return;
-            }
-
-            const downloadCsvButton = popupElement.querySelector("#downloadCSV");
-            if (!downloadCsvButton) {
-                console.error("Error: Botón de descarga no encontrado en el popup.");
-                return;
-            }
-
-            downloadCsvButton.onclick = function () {
-                descargarCSV(popupElement);
-            };
-        }, 200); // Pequeño retraso para asegurar que el popup se ha renderizado
-    });
-}
-
-function descargarCSV(popupElement) {
+// Nueva función específica para la descarga CSV de la capa de Cosecha de Agua
+function descargarCSVCosecha(popupElement, properties) {
+    console.log("Iniciando descargarCSVCosecha...");
     if (!popupElement) {
-        console.error("Error: popupElement es null o undefined.");
+        console.error("Error: popupElement es null o undefined en descargarCSVCosecha.");
         return;
+    }
+    if (!properties) {
+        console.error("Error: Las propiedades del feature (Departamento, Localidad, Ecorregión) no se pasaron a descargarCSVCosecha.");
+        properties = {};
     }
 
-    const table = popupElement.querySelector("#popupTable");
+    // Usar el ID de la tabla específica para esta capa
+    const table = popupElement.querySelector("#popupTableCosecha"); // <--- CAMBIO AQUÍ
     if (!table) {
-        console.error("Error: No se encontró la tabla en el popup.");
+        console.error("Error: No se encontró la tabla en el popup en descargarCSVCosecha.");
         return;
     }
+    console.log("Tabla encontrada:", table);
 
     let csvContent = [];
+
+    // Añadir información de Departamento, Localidad, Ecorregión
+    csvContent.push(`Departamento: ${properties.name || ''}`);
+    csvContent.push(`Localidad: ${properties.loc || ''}`);
+    csvContent.push(`Ecorregión: ${properties.NOMBRE_EC || ''}`); // <--- CAMBIO AQUÍ: NOMBRE_EC
+    csvContent.push(""); // Línea vacía para separación
+
+    // Iterar sobre cada fila para construir el contenido CSV
     const rows = table.querySelectorAll("tr");
+    console.log("Número de filas de la tabla encontradas:", rows.length);
 
     rows.forEach(row => {
         const cols = row.querySelectorAll("th, td");
         const rowData = [];
-        cols.forEach(col => rowData.push(col.innerText));
+        cols.forEach(col => {
+            let text = col.innerText;
+
+            // Limpieza de texto (la misma lógica que ya funciona bien)
+            text = text.replace(/m³/g, 'm3');
+            text = text.replace(/m²/g, 'm2');
+            text = text.replace(/°C/g, 'C'); // Reemplazar °C por C
+            text = text.replace(/\^/g, '');
+            text = text.trim();
+
+            // Manejo de comillas y saltos de línea para CSV
+            if (text.includes(',') || text.includes('\n') || text.includes('"')) {
+                text = `"${text.replace(/"/g, '""')}"`;
+            }
+
+            rowData.push(text);
+        });
         csvContent.push(rowData.join(","));
     });
 
     const csvString = csvContent.join("\n");
-    const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+    console.log("Contenido CSV generado (final para Cosecha de Agua):\n", csvString);
+
+    if (csvString.trim().length === 0) {
+        console.warn("El contenido CSV está vacío o solo contiene espacios en blanco. No se creará el archivo.");
+        return;
+    }
+
+    const blob = new Blob(["\uFEFF" + csvString], { type: "text/csv;charset=utf-8;" }); // <--- CAMBIO CLAVE AQUÍ
     const link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = `tabla_comparativa_${Date.now()}.csv`;
+    // Cambiar el nombre del archivo para que sea específico de esta capa
+    link.download = `Modelos_de_Cosecha_Agua_${properties.name || ''}_${properties.loc || ''}` // <--- CAMBIO AQUÍ
+        .replace(/\s+/g, '_')       // Reemplaza espacios por guiones bajos
+        .replace(/[^\w\-]/g, '');   // Elimina caracteres no válidos para archivos
 
+
+    console.log("Intentando descargar archivo:", link.download);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
+    console.log("Proceso de descarga completado (se hizo click en el enlace).");
 }
+
 
 
 /// DAtos de GeoJson con toda la info
