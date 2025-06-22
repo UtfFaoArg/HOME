@@ -153,7 +153,7 @@ function descargarCSVCosecha(popupElement, properties) {
     // Añadir información de Departamento, Localidad, Ecorregión
     csvContent.push(`Departamento: ${properties.name || ''}`);
     csvContent.push(`Localidad: ${properties.loc || ''}`);
-    csvContent.push(`Ecorregión: ${properties.NOMBRE_EC || ''}`); // <--- CAMBIO AQUÍ: NOMBRE_EC
+    csvContent.push(`Ecorregión: ${properties.NOMBRE_ECO || ''}`); // <--- CAMBIO AQUÍ: NOMBRE_EC
     csvContent.push(""); // Línea vacía para separación
 
     // Iterar sobre cada fila para construir el contenido CSV

@@ -174,6 +174,7 @@ function descargarCSV(popupElement, properties) {
     document.body.removeChild(link);
     console.log("Proceso de descarga completado (se hizo click en el enlace).");
 }
+
 /// DAtos de GeoJson con toda la info
 var datamodeloProductivo =
 {
