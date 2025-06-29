@@ -114,24 +114,24 @@ var overlayMaps = [
 			
 		]
 	},
-	// {
-	// 	group: "Modelos de Calculados ",
-	// 	collapsed: true,
-	// 	layers: [
-	// 		{
-	// 			active: false,
-	// 			name: 'Modelos Productivos',
-	// 			layer: ModelosProductivo,
-	// 			transparent: true,
-	// 			opacity: 0.5,
-	// 		},
-	// 		{
-	// 			active: false,
-	// 			name: 'Modelos de Cosecha de Agua',
-	// 			layer: ModelosTotal,
-	// 			transparent: true,
-	// 			opacity: 0.5,
-	// 		},
+	{
+		group: "Modelos de Calculados ",
+		collapsed: true,
+		layers: [
+			{
+				active: false,
+				name: 'Modelos Productivos',
+				layer: ModelosProductivo,
+				transparent: true,
+				opacity: 0.5,
+			},
+			{
+				active: false,
+				name: 'Modelos de Cosecha de Agua',
+				layer: ModelosTotal,
+				transparent: true,
+				opacity: 0.5,
+			},
 	// 		// {
 	// 		// 	active: false,
 	// 		// 	name:'<span>Seguridad Alimentaria <br> con Suelo Natural <img src="./images/huerta.png" alt="Ícono" style="width:16px; height:16px; margin-left: 5px;"></span> ',
@@ -167,8 +167,8 @@ var overlayMaps = [
 	// 		// 	transparent: true,
 	// 		// 	opacity: 0.5,
 	// 		// },
-	// 	]
-	// },
+		]
+	},
 	
 	
 ];

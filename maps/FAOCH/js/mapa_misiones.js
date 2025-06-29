@@ -338,19 +338,44 @@ var ModelosTotal = L.geoJSON(datamodelo, {
 	}
 });
 
-// Modelo productivo
-var ModelosProductivo = L.geoJSON(datamodeloProductivo, {
-	onEachFeature: function (feature, layer) {
-		var content = popupContentModProductivos(feature);
-		layer.bindPopup(content, {
-			maxWidth: "auto",  // Permite que el popup se ajuste al contenido
-			autoPan: true,      // Asegura que el popup se mantenga en vista
-			keepInView: true    // Evita que el popup se salga del mapa
-		});
-	},
-	pointToLayer: function (feature, latlng) {
-		return L.marker(latlng, {
-			icon: IconModPrductivo
-		});
-	}
+// Modelo productivo de Lucas Costas
+var ModelosProductivo = L.geoJSON({
+  ...datamodeloProductivo,
+  features: datamodeloProductivo.features.filter(f => f.properties.Provincia === "Misiones")
+}, {
+  pointToLayer: (f, latlng) => L.circleMarker(latlng, IconModPrductivo),
+
+  // ⚠️ Esta línea solo es necesaria si estás aplicando un estilo distinto a los iconos.
+  // De lo contrario, podés eliminarla o renombrarla como styleModProductivo si lo tenés definido.
+  style: IconModPrductivo, 
+
+  onEachFeature: (f, layer) => {
+    const content = popupContentModProductivos(f);
+    layer.bindPopup(content, { maxWidth: "auto" });
+
+    layer.on("popupopen", function (e) {
+      const popup = e.popup;
+      if (!popup) {
+        console.error("Error: e.popup no está definido.");
+        return;
+      }
+
+      const popupElement = popup.getElement();
+      if (!popupElement) {
+        console.error("Error: popupElement no encontrado usando popup.getElement().");
+        return;
+      }
+
+      const downloadCsvButton = popupElement.querySelector("#downloadCSV");
+      if (!downloadCsvButton) {
+        console.error("Error: Botón de descarga con ID #downloadCSV no encontrado en el popup.");
+        return;
+      }
+
+      downloadCsvButton.addEventListener('click', function () {
+        // ✅ CORREGIDO: usar f.properties en lugar de feature.properties
+        descargarCSV(popupElement, f.properties);
+      });
+    });
+  }
 });

@@ -212,111 +212,6 @@ var DataIso = L.geoJSON(isohietas,
 
 
 
-/// Puntos de Modelos de Consecha de Agua - A partir de la Tabla de MAtias Lopez
-// Uso domestico
-// var UsoDom = L.geoJSON(datamodelo,
-// 	{
-// 		// style: styleUD,
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentUD(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconUD
-// 			})},
-// 	}
-// );
-// // Seguridad Alimentaria con Sistema Impermeble
-// var SASI = L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentSASI(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconSASI
-// 			})},
-// 	}
-// );
-// // Seguridad Alimentaria con Sistema Suelo Natural
-// var SASN = L.geoJSON(datamodelo, {
-//     onEachFeature: function (feature, layer) {
-//         var content = popupContentSASN(feature);
-//         layer.bindPopup(content, {
-//             maxWidth: "auto",  // Permite que el popup se ajuste al contenido
-//             autoPan: true,      // Asegura que el popup se mantenga en vista
-//             keepInView: true    // Evita que el popup se salga del mapa
-//         });
-//     },
-//     pointToLayer: function (feature, latlng) {
-//         return L.marker(latlng, {
-//             icon: IconSASN
-//         });
-//     }
-// });
-
-// // Sistema Ganaderia con Suelo Impermeable
-// var GanaderiaSI = L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentGSI(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconGSI
-// 			})},
-// 	}
-// );
-// // Sistema Ganaderia con Suelo Natural
-// var GanaderiaSN= L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentGSN(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconGSN
-// 			})},
-// 	}
-// );
-
-// // Sistema Excedentes con Suelo Impermeble
-// var ExComSI= L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentESI(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconESI
-// 			})},
-// 	}
-// );
-
-// // Sistema Excedentes con Suelo Natural
-// var ExComSN= L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentESN(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconESN
-// 			})},
-// 	}
-// );
-
 
 // Modelo de cosecha de agua
 var ModelosTotal = L.geoJSON(datamodelo, {
@@ -335,19 +230,44 @@ var ModelosTotal = L.geoJSON(datamodelo, {
 	}
 });
 
-// Modelo productivo
-var ModelosProductivo = L.geoJSON(datamodeloProductivo, {
-	onEachFeature: function (feature, layer) {
-		var content = popupContentModProductivos(feature);
-		layer.bindPopup(content, {
-			maxWidth: "auto",  // Permite que el popup se ajuste al contenido
-			autoPan: true,      // Asegura que el popup se mantenga en vista
-			keepInView: true    // Evita que el popup se salga del mapa
-		});
-	},
-	pointToLayer: function (feature, latlng) {
-		return L.marker(latlng, {
-			icon: IconModPrductivo
-		});
-	}
+// Modelo productivo de Lucas Costas
+var ModelosProductivo = L.geoJSON({
+  ...datamodeloProductivo,
+  features: datamodeloProductivo.features.filter(f => f.properties.Provincia === "Formosa")
+}, {
+  pointToLayer: (f, latlng) => L.circleMarker(latlng, IconModPrductivo),
+
+  // ⚠️ Esta línea solo es necesaria si estás aplicando un estilo distinto a los iconos.
+  // De lo contrario, podés eliminarla o renombrarla como styleModProductivo si lo tenés definido.
+  style: IconModPrductivo, 
+
+  onEachFeature: (f, layer) => {
+    const content = popupContentModProductivos(f);
+    layer.bindPopup(content, { maxWidth: "auto" });
+
+    layer.on("popupopen", function (e) {
+      const popup = e.popup;
+      if (!popup) {
+        console.error("Error: e.popup no está definido.");
+        return;
+      }
+
+      const popupElement = popup.getElement();
+      if (!popupElement) {
+        console.error("Error: popupElement no encontrado usando popup.getElement().");
+        return;
+      }
+
+      const downloadCsvButton = popupElement.querySelector("#downloadCSV");
+      if (!downloadCsvButton) {
+        console.error("Error: Botón de descarga con ID #downloadCSV no encontrado en el popup.");
+        return;
+      }
+
+      downloadCsvButton.addEventListener('click', function () {
+        // ✅ CORREGIDO: usar f.properties en lugar de feature.properties
+        descargarCSV(popupElement, f.properties);
+      });
+    });
+  }
 });
