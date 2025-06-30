@@ -210,24 +210,52 @@ var DataIso = L.geoJSON(isohietas,
 );
 
 
-
-
-
 // Modelo de cosecha de agua
-var ModelosTotal = L.geoJSON(datamodelo, {
-	onEachFeature: function (feature, layer) {
-		var content = popupContentModelos(feature);
-		layer.bindPopup(content, {
-			maxWidth: "auto",  // Permite que el popup se ajuste al contenido
-			autoPan: true,      // Asegura que el popup se mantenga en vista
-			keepInView: true    // Evita que el popup se salga del mapa
-		});
-	},
-	pointToLayer: function (feature, latlng) {
-		return L.marker(latlng, {
-			icon: IconSASN
+var ModelosTotal = L.geoJSON({
+	...datamodelo,
+	features: datamodelo.features.filter(f => f.properties.Provincia === "Formosa")
+}, {
+	pointToLayer: (f, latlng) => L.circleMarker(latlng, IconSASN),
+	style: IconSASN,
+	onEachFeature: (f, layer) => {
+		const popupContent = popupContentModelos(f);
+		// Vincula el popup a la capa
+		layer.bindPopup(popupContent, { maxWidth: "auto" });
+
+		// Adjunta el listener para cuando el popup se abre
+		layer.on("popupopen", function (e) {
+			// console.log("Popup de Modelos de Cosecha abierto.");
+
+			const popup = e.popup;
+			if (!popup) {
+				console.error("Error: e.popup no está definido.");
+				return;
+			}
+
+			const popupElement = popup.getElement();
+			if (!popupElement) {
+				
+				return;
+			}
+			// console.log("popupElement encontrado:", popupElement);
+
+			// Busca el botón de descarga del CSV usando el ID específico para esta capa
+			const downloadCsvButton = popupElement.querySelector("#downloadCSVCosecha"); // <--- CAMBIO AQUÍ
+			if (!downloadCsvButton) {
+		
+				return;
+			}
+			
+
+			// Adjunta el manejador de eventos click usando addEventListener
+			downloadCsvButton.addEventListener('click', function () {
+		
+				// Llama a la NUEVA función de descarga para esta capa
+				descargarCSVCosecha(popupElement, f.properties); // <--- CAMBIO AQUÍ
+			});
 		});
 	}
+
 });
 
 // Modelo productivo de Lucas Costas

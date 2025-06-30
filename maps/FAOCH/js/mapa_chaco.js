@@ -95,7 +95,7 @@ var NucleosAF = L.geoJSON({
 var RURAL = L.geoJSON({
 	...rural,
 	features: rural.features.filter(f => f.properties.provincia === "Chaco")
-	}, {
+}, {
 	style: styleRural,
 	onEachFeature: (f, layer) => layer.bindPopup(popupContentRural(f))
 });
@@ -143,49 +143,49 @@ var EstacionesSMN = L.geoJSON({
 
 var Ecoregion = L.geoJSON({
 	...ecorregion,
-		features: ecorregion.features.filter(f => f.properties.name === "Chaco")
+	features: ecorregion.features.filter(f => f.properties.name === "Chaco")
 }, {
-	
-		style: styleEco,
-		onEachFeature:  (f, layer) => layer.bindPopup(popupContentEcoregion(f))
-	}
+
+	style: styleEco,
+	onEachFeature: (f, layer) => layer.bindPopup(popupContentEcoregion(f))
+}
 );
 
 var SuelosTipo = L.geoJSON({
 	...suelos,
 	features: suelos.features.filter(f => f.properties.provincia === "CHACO")
 }, {
-		style: styleSuelos,
-		onEachFeature:  (f, layer) => layer.bindPopup(popupContentSuelos(f))
-	});
+	style: styleSuelos,
+	onEachFeature: (f, layer) => layer.bindPopup(popupContentSuelos(f))
+});
 
 ///Dapto con Arsenicos segun el Ministerio de Salud en 2006 https://www.argentina.gob.ar/sites/default/files/2006_epidemiologia_del_hacre_en_argentina.pdf
 var DeptoArsenico = L.geoJSON({
 	...dptoArsenico,
-		features: dptoArsenico.features.filter(f => f.properties.provincia === "Chaco")
+	features: dptoArsenico.features.filter(f => f.properties.provincia === "Chaco")
 }, {
-		style: styleDptoArsenico,
-		onEachFeature:  (f, layer) => layer.bindPopup(popupContentDptoArsenico(f))
-	});
+	style: styleDptoArsenico,
+	onEachFeature: (f, layer) => layer.bindPopup(popupContentDptoArsenico(f))
+});
 
 
 var AreasProtegidas = L.geoJSON({
 	...areasprotegidas,
 	features: areasprotegidas.features.filter(f => f.properties.provincia === "Chaco")
 }, {
-		style: styleAreas,
-		onEachFeature:  (f, layer) =>  layer.bindPopup(popupContentAreas(f))
-	}
+	style: styleAreas,
+	onEachFeature: (f, layer) => layer.bindPopup(popupContentAreas(f))
+}
 );
 
 ///Daptos del IGN
 var RegionesHirdo = L.geoJSON({
 	...RegionHidrogeografica,
-	features: RegionHidrogeografica.features.filter( f => f.properties.provincia === "Chaco")
-	}, {
-		style: styleRegionHidro,
-		onEachFeature: (f, layer) =>  layer.bindPopup(popupContentRegionHidro(f))
-	}
+	features: RegionHidrogeografica.features.filter(f => f.properties.provincia === "Chaco")
+}, {
+	style: styleRegionHidro,
+	onEachFeature: (f, layer) => layer.bindPopup(popupContentRegionHidro(f))
+}
 );
 
 ///Dapto IGN
@@ -211,160 +211,97 @@ var DataIso = L.geoJSON(isohietas,
 
 
 
-/// Puntos de Modelos de Consecha de Agua - A partir de la Tabla de MAtias Lopez
-// Uso domestico
-// var UsoDom = L.geoJSON(datamodelo,
-// 	{
-// 		// style: styleUD,
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentUD(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconUD
-// 			})},
-// 	}
-// );
-// // Seguridad Alimentaria con Sistema Impermeble
-// var SASI = L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentSASI(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconSASI
-// 			})},
-// 	}
-// );
-// // Seguridad Alimentaria con Sistema Suelo Natural
-// var SASN = L.geoJSON(datamodelo, {
-//     onEachFeature: function (feature, layer) {
-//         var content = popupContentSASN(feature);
-//         layer.bindPopup(content, {
-//             maxWidth: "auto",  // Permite que el popup se ajuste al contenido
-//             autoPan: true,      // Asegura que el popup se mantenga en vista
-//             keepInView: true    // Evita que el popup se salga del mapa
-//         });
-//     },
-//     pointToLayer: function (feature, latlng) {
-//         return L.marker(latlng, {
-//             icon: IconSASN
-//         });
-//     }
-// });
-
-// // Sistema Ganaderia con Suelo Impermeable
-// var GanaderiaSI = L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentGSI(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconGSI
-// 			})},
-// 	}
-// );
-// // Sistema Ganaderia con Suelo Natural
-// var GanaderiaSN= L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentGSN(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconGSN
-// 			})},
-// 	}
-// );
-
-// // Sistema Excedentes con Suelo Impermeble
-// var ExComSI= L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentESI(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconESI
-// 			})},
-// 	}
-// );
-
-// // Sistema Excedentes con Suelo Natural
-// var ExComSN= L.geoJSON(datamodelo,
-// 	{
-
-// 		onEachFeature: function (feature, layer) {
-// 			var content = popupContentESN(feature);
-// 			layer.bindPopup(content);
-// 		},
-// 		pointToLayer: function(feature, layer) {
-// 			return L.marker(layer, {
-// 				icon: IconESN
-// 			})},
-// 	}
-// );
-
 
 // Modelo de cosecha de agua
 var ModelosTotal = L.geoJSON({
-	...datamodeloProductivo, 
-	features: datamodeloProductivo.features.filter(f => f.properties.Provincia === "Chaco")
-	}, {
-		style: IconModPrductivo,
-	onEachFeature:  (f, layer)=> layer.bindPopup(popupContentModProductivos(f))
+	...datamodelo,
+	features: datamodelo.features.filter(f => f.properties.Provincia === "Chaco")
+}, {
+	pointToLayer: (f, latlng) => L.circleMarker(latlng, IconSASN),
+	style: IconSASN,
+	onEachFeature: (f, layer) => {
+		const popupContent = popupContentModelos(f);
+		// Vincula el popup a la capa
+		layer.bindPopup(popupContent, { maxWidth: "auto" });
+
+		// Adjunta el listener para cuando el popup se abre
+		layer.on("popupopen", function (e) {
+			// console.log("Popup de Modelos de Cosecha abierto.");
+
+			const popup = e.popup;
+			if (!popup) {
+				console.error("Error: e.popup no está definido.");
+				return;
+			}
+
+			const popupElement = popup.getElement();
+			if (!popupElement) {
+				
+				return;
+			}
+			// console.log("popupElement encontrado:", popupElement);
+
+			// Busca el botón de descarga del CSV usando el ID específico para esta capa
+			const downloadCsvButton = popupElement.querySelector("#downloadCSVCosecha"); // <--- CAMBIO AQUÍ
+			if (!downloadCsvButton) {
+		
+				return;
+			}
+			
+
+			// Adjunta el manejador de eventos click usando addEventListener
+			downloadCsvButton.addEventListener('click', function () {
+		
+				// Llama a la NUEVA función de descarga para esta capa
+				descargarCSVCosecha(popupElement, f.properties); // <--- CAMBIO AQUÍ
+			});
+		});
+	}
 
 });
 
+
+
+
+
 // Modelo productivo de Lucas Costas
 var ModelosProductivo = L.geoJSON({
-  ...datamodeloProductivo,
-  features: datamodeloProductivo.features.filter(f => f.properties.Provincia === "Chaco")
+	...datamodeloProductivo,
+	features: datamodeloProductivo.features.filter(f => f.properties.Provincia === "Chaco")
 }, {
-  pointToLayer: (f, latlng) => L.circleMarker(latlng, IconModPrductivo),
+	pointToLayer: (f, latlng) => L.circleMarker(latlng, IconModPrductivo),
 
-  // ⚠️ Esta línea solo es necesaria si estás aplicando un estilo distinto a los iconos.
-  // De lo contrario, podés eliminarla o renombrarla como styleModProductivo si lo tenés definido.
-  style: IconModPrductivo, 
+	// ⚠️ Esta línea solo es necesaria si estás aplicando un estilo distinto a los iconos.
+	// De lo contrario, podés eliminarla o renombrarla como styleModProductivo si lo tenés definido.
+	style: IconModPrductivo,
 
-  onEachFeature: (f, layer) => {
-    const content = popupContentModProductivos(f);
-    layer.bindPopup(content, { maxWidth: "auto" });
+	onEachFeature: (f, layer) => {
+		const content = popupContentModProductivos(f);
+		layer.bindPopup(content, { maxWidth: "auto" });
 
-    layer.on("popupopen", function (e) {
-      const popup = e.popup;
-      if (!popup) {
-        console.error("Error: e.popup no está definido.");
-        return;
-      }
+		layer.on("popupopen", function (e) {
+			const popup = e.popup;
+			if (!popup) {
+				console.error("Error: e.popup no está definido.");
+				return;
+			}
 
-      const popupElement = popup.getElement();
-      if (!popupElement) {
-        console.error("Error: popupElement no encontrado usando popup.getElement().");
-        return;
-      }
+			const popupElement = popup.getElement();
+			if (!popupElement) {
+				console.error("Error: popupElement no encontrado usando popup.getElement().");
+				return;
+			}
 
-      const downloadCsvButton = popupElement.querySelector("#downloadCSV");
-      if (!downloadCsvButton) {
-        console.error("Error: Botón de descarga con ID #downloadCSV no encontrado en el popup.");
-        return;
-      }
+			const downloadCsvButton = popupElement.querySelector("#downloadCSV");
+			if (!downloadCsvButton) {
+				console.error("Error: Botón de descarga con ID #downloadCSV no encontrado en el popup.");
+				return;
+			}
 
-      downloadCsvButton.addEventListener('click', function () {
-        // ✅ CORREGIDO: usar f.properties en lugar de feature.properties
-        descargarCSV(popupElement, f.properties);
-      });
-    });
-  }
+			downloadCsvButton.addEventListener('click', function () {
+				// ✅ CORREGIDO: usar f.properties en lugar de feature.properties
+				descargarCSV(popupElement, f.properties);
+			});
+		});
+	}
 });
