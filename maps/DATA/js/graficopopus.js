@@ -1,23 +1,21 @@
+// Grilla Histórica
 var grillaHistorico = L.geoJSON(historico, {
-    style: function (feature) {
-        return {
-            fillColor: "gray",
-            weight: 1,
-            opacity: 0.7,
-            color: '#000',
-            dashArray: '0.2',
-            fillOpacity: 0.1
-        };
-    },
+    style: () => ({
+        fillColor: "gray",
+        weight: 1,
+        opacity: 0.7,
+        color: '#000',
+        dashArray: '0.2',
+        fillOpacity: 0.1
+    }),
     onEachFeature: function (feature, layer) {
-        // Crear el popup con el canvas para el gráfico y botones de descarga
         layer.bindPopup(`
             <div>
                 <h3>Medias Anuales de Precipitación (mm)<br>Históricas 1990 al 2015</h3>
-                <hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />
+                <hr class='hrx' width='100%' />
                 <b><i>Fuente de Información:</i></b> Elaborado a partir de datos estadísticos<br>
                 <b>Fecha de actualización:</b> Diciembre 2024
-                <hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />
+                <hr class='hrx' width='100%' />
                 <div>
                     <canvas id="chart_${feature.properties.id}" width="400" height="200"></canvas>
                     <button id="download_csv_${feature.properties.id}" class="btn btn-primary">Descargar CSV</button>
@@ -28,17 +26,12 @@ var grillaHistorico = L.geoJSON(historico, {
 
         layer.on('popupopen', function (e) {
             const popup = e.popup;
-            const properties = feature.properties;
+            const props = feature.properties;
 
-            // Filtrar datos de años desde las propiedades del feature
-            const labels = Object.keys(properties)
-                .filter(key => /^\d{4}$/.test(key)) // Claves que sean años
-                .sort(); // Ordenar por año
-            const data = labels.map(year => properties[year]); // Obtener valores correspondientes
+            const labels = Object.keys(props).filter(k => /^\d{4}$/.test(k)).sort();
+            const data = labels.map(year => props[year]);
 
-            // Obtener el canvas por ID y generar el gráfico
-            const canvasId = `chart_${feature.properties.id}`;
-            const canvas = popup.getElement().querySelector(`#${canvasId}`);
+            const canvas = popup.getElement().querySelector(`#chart_${props.id}`);
             if (canvas) {
                 const ctx = canvas.getContext('2d');
                 new Chart(ctx, {
@@ -49,7 +42,7 @@ var grillaHistorico = L.geoJSON(historico, {
                             label: 'Precipitación anual (mm)',
                             data: data,
                             borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)'
                         }]
                     },
                     options: {
@@ -62,29 +55,27 @@ var grillaHistorico = L.geoJSON(historico, {
                 });
             }
 
-            // Funcionalidad para descargar CSV
-            const downloadCsvButton = popup.getElement().querySelector(`#download_csv_${feature.properties.id}`);
-            if (downloadCsvButton) {
-                downloadCsvButton.addEventListener('click', function () {
-                    const csvContent = `Año,Precipitación (mm)\n` +
-                        labels.map((year, index) => `${year},${data[index]}`).join("\n");
-                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const csvBtn = popup.getElement().querySelector(`#download_csv_${props.id}`);
+            if (csvBtn) {
+                csvBtn.addEventListener('click', function () {
+                    const bom = '\uFEFF';
+                    const csv = bom + "Año,Precipitación (mm)\n" + labels.map((y, i) => `${y},${data[i]}`).join("\n");
+                    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
                     const link = document.createElement("a");
                     link.href = URL.createObjectURL(blob);
-                    link.download = `precipitacion_historico_${feature.properties.id}.csv`;
-                    document.body.appendChild(link); // Requerido para Firefox
+                    link.download = `precipitacion_historico_${props.id}.csv`;
+                    document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
                 });
             }
 
-            // Botón para descargar PNG
-            const downloadPngButton = popup.getElement().querySelector(`#download_png_${feature.properties.id}`);
-            if (downloadPngButton && canvas) {
-                downloadPngButton.addEventListener('click', function () {
-                    const link = document.createElement('a');
-                    link.href = canvas.toDataURL('image/png');
-                    link.download = `grafico_historico_${feature.properties.id}.png`;
+            const pngBtn = popup.getElement().querySelector(`#download_png_${props.id}`);
+            if (pngBtn && canvas) {
+                pngBtn.addEventListener('click', function () {
+                    const link = document.createElement("a");
+                    link.href = canvas.toDataURL("image/png");
+                    link.download = `grafico_historico_${props.id}.png`;
                     link.click();
                 });
             }
@@ -92,27 +83,24 @@ var grillaHistorico = L.geoJSON(historico, {
     }
 });
 
-///
+// Grilla Proyección
 var grillaProyeccion = L.geoJSON(proyeccion, {
-    style: function (feature) {
-        return {
-            fillColor: "gray",
-            weight: 1,
-            opacity: 0.7,
-            color: '#000',
-            dashArray: '0.2',
-            fillOpacity: 0.1
-        };
-    },
+    style: () => ({
+        fillColor: "gray",
+        weight: 1,
+        opacity: 0.7,
+        color: '#000',
+        dashArray: '0.2',
+        fillOpacity: 0.1
+    }),
     onEachFeature: function (feature, layer) {
-        // Crear el popup con el canvas para el gráfico y botones de descarga
         layer.bindPopup(`
             <div>
                 <h3>Medias Anuales de Precipitación (mm)<br>Proyección 2015 al 2050</h3>
-                <hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />
+                <hr class='hrx' width='100%' />
                 <b><i>Fuente de Información:</i></b> Elaborado a partir de datos estadísticos<br>
                 <b>Fecha de actualización:</b> Diciembre 2024
-                <hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />
+                <hr class='hrx' width='100%' />
                 <div>
                     <canvas id="chart_${feature.properties.id}" width="400" height="200"></canvas>
                     <button id="download_csv_${feature.properties.id}" class="btn btn-primary">Descargar CSV</button>
@@ -123,17 +111,12 @@ var grillaProyeccion = L.geoJSON(proyeccion, {
 
         layer.on('popupopen', function (e) {
             const popup = e.popup;
-            const properties = feature.properties;
+            const props = feature.properties;
 
-            // Filtrar datos de años desde las propiedades del feature
-            const labels = Object.keys(properties)
-                .filter(key => /^\d{4}$/.test(key)) // Claves que sean años
-                .sort(); // Ordenar por año
-            const data = labels.map(year => properties[year]); // Obtener valores correspondientes
+            const labels = Object.keys(props).filter(k => /^\d{4}$/.test(k)).sort();
+            const data = labels.map(year => props[year]);
 
-            // Obtener el canvas por ID y generar el gráfico
-            const canvasId = `chart_${feature.properties.id}`;
-            const canvas = popup.getElement().querySelector(`#${canvasId}`);
+            const canvas = popup.getElement().querySelector(`#chart_${props.id}`);
             if (canvas) {
                 const ctx = canvas.getContext('2d');
                 new Chart(ctx, {
@@ -144,7 +127,7 @@ var grillaProyeccion = L.geoJSON(proyeccion, {
                             label: 'Precipitación anual (mm)',
                             data: data,
                             borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)'
                         }]
                     },
                     options: {
@@ -157,29 +140,27 @@ var grillaProyeccion = L.geoJSON(proyeccion, {
                 });
             }
 
-            // Funcionalidad para descargar CSV
-            const downloadCsvButton = popup.getElement().querySelector(`#download_csv_${feature.properties.id}`);
-            if (downloadCsvButton) {
-                downloadCsvButton.addEventListener('click', function () {
-                    const csvContent = `Año,Precipitación (mm)\n` +
-                        labels.map((year, index) => `${year},${data[index]}`).join("\n");
-                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const csvBtn = popup.getElement().querySelector(`#download_csv_${props.id}`);
+            if (csvBtn) {
+                csvBtn.addEventListener('click', function () {
+                    const bom = '\uFEFF';
+                    const csv = bom + "Año,Precipitación (mm)\n" + labels.map((y, i) => `${y},${data[i]}`).join("\n");
+                    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
                     const link = document.createElement("a");
                     link.href = URL.createObjectURL(blob);
-                    link.download = `precipitacion_proyeccion_${feature.properties.id}.csv`;
-                    document.body.appendChild(link); // Requerido para Firefox
+                    link.download = `precipitacion_proyeccion_${props.id}.csv`;
+                    document.body.appendChild(link);
                     link.click();
                     document.body.removeChild(link);
                 });
             }
 
-            // Funcionalidad para descargar PNG
-            const downloadPngButton = popup.getElement().querySelector(`#download_png_${feature.properties.id}`);
-            if (downloadPngButton && canvas) {
-                downloadPngButton.addEventListener('click', function () {
-                    const link = document.createElement('a');
-                    link.href = canvas.toDataURL('image/png');
-                    link.download = `grafico_proyeccion_${feature.properties.id}.png`;
+            const pngBtn = popup.getElement().querySelector(`#download_png_${props.id}`);
+            if (pngBtn && canvas) {
+                pngBtn.addEventListener('click', function () {
+                    const link = document.createElement("a");
+                    link.href = canvas.toDataURL("image/png");
+                    link.download = `grafico_proyeccion_${props.id}.png`;
                     link.click();
                 });
             }
@@ -187,29 +168,24 @@ var grillaProyeccion = L.geoJSON(proyeccion, {
     }
 });
 
-
-
-///
+// Grilla Mensual
 var GrillaMensual = L.geoJSON(mensual, {
-    style: function (feature) {
-        return {
-            fillColor: "black",
-            weight: 1,
-            opacity: 0.5,
-            color: '#000',
-            dashArray: '0.2',
-            fillOpacity: 0.1
-        };
-    },
+    style: () => ({
+        fillColor: "black",
+        weight: 1,
+        opacity: 0.5,
+        color: '#000',
+        dashArray: '0.2',
+        fillOpacity: 0.1
+    }),
     onEachFeature: function (feature, layer) {
-        // Crear el popup con el canvas para el gráfico y botones de descarga
         layer.bindPopup(`
             <div>
-                <h3>Medias Mensuales de Precipitación (mm) 2015 al 2035</h3>
-                <hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />
+                <h3>Medias Mensuales de Precipitación (mm)<br>2015 al 2035</h3>
+                <hr class='hrx' width='100%' />
                 <b><i>Fuente de Información:</i></b> Elaborado a partir de datos estadísticos<br>
                 <b>Fecha de actualización:</b> Diciembre 2024
-                <hr class='hrx' align='left' noshade='noshade' size='1' width='100%' />
+                <hr class='hrx' width='100%' />
                 <div>
                     <canvas id="chart_${feature.properties.id}" width="400" height="200"></canvas>
                     <button id="download_csv_${feature.properties.id}" class="btn btn-primary">Descargar CSV</button>
@@ -220,15 +196,12 @@ var GrillaMensual = L.geoJSON(mensual, {
 
         layer.on('popupopen', function (e) {
             const popup = e.popup;
-            const properties = feature.properties;
+            const props = feature.properties;
 
-            // Filtrar las claves que corresponden a datos mensuales en formato "AAAA-MM"
-            const labels = Object.keys(properties).filter(key => /^\d{4}-\d{2}$/.test(key)).sort();
-            const data = labels.map(key => properties[key]);
+            const labels = Object.keys(props).filter(k => /^\d{4}-\d{2}$/.test(k)).sort();
+            const data = labels.map(key => props[key]);
 
-            // Generar el gráfico en el canvas
-            const canvasId = `chart_${feature.properties.id}`;
-            const canvas = popup.getElement().querySelector(`#${canvasId}`);
+            const canvas = popup.getElement().querySelector(`#chart_${props.id}`);
             if (canvas) {
                 const ctx = canvas.getContext('2d');
                 new Chart(ctx, {
@@ -239,7 +212,7 @@ var GrillaMensual = L.geoJSON(mensual, {
                             label: 'Valores mensuales',
                             data: data,
                             borderColor: 'rgba(75, 192, 192, 1)',
-                            backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                            backgroundColor: 'rgba(75, 192, 192, 0.2)'
                         }]
                     },
                     options: {
@@ -252,27 +225,25 @@ var GrillaMensual = L.geoJSON(mensual, {
                 });
             }
 
-            // Funcionalidad para descargar CSV
-            const downloadCsvButton = popup.getElement().querySelector(`#download_csv_${feature.properties.id}`);
-            if (downloadCsvButton) {
-                downloadCsvButton.addEventListener('click', function () {
-                    const csvContent = `Mes,Precipitación (mm)\n` +
-                        labels.map((label, index) => `${label},${data[index]}`).join("\n");
-                    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const csvBtn = popup.getElement().querySelector(`#download_csv_${props.id}`);
+            if (csvBtn) {
+                csvBtn.addEventListener('click', function () {
+                    const bom = '\uFEFF';
+                    const csv = bom + "Mes,Precipitación (mm)\n" + labels.map((l, i) => `${l},${data[i]}`).join("\n");
+                    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
                     const link = document.createElement("a");
                     link.href = URL.createObjectURL(blob);
-                    link.download = `precipitacion_mensual_${feature.properties.id}.csv`;
+                    link.download = `precipitacion_mensual_${props.id}.csv`;
                     link.click();
                 });
             }
 
-            // Funcionalidad para descargar PNG
-            const downloadPngButton = popup.getElement().querySelector(`#download_png_${feature.properties.id}`);
-            if (downloadPngButton && canvas) {
-                downloadPngButton.addEventListener('click', function () {
-                    const link = document.createElement('a');
-                    link.href = canvas.toDataURL('image/png');
-                    link.download = `grafico_mensual_${feature.properties.id}.png`;
+            const pngBtn = popup.getElement().querySelector(`#download_png_${props.id}`);
+            if (pngBtn && canvas) {
+                pngBtn.addEventListener('click', function () {
+                    const link = document.createElement("a");
+                    link.href = canvas.toDataURL("image/png");
+                    link.download = `grafico_mensual_${props.id}.png`;
                     link.click();
                 });
             }
