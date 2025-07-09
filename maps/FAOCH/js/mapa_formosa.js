@@ -113,7 +113,7 @@ var ProyecAgua = L.geoJSON({
 
 var SitiosSeleccionados = L.geoJSON({
 	...sitios,
-	features: sitios.features.filter(f => f.properties.nom_pcia === "Formosa")
+	features: sitios.features.filter(f => f.properties.Provincia === "Formosa")
 }, {
 	pointToLayer: (f, latlng) => L.circleMarker(latlng, MarkerOptionsSitios),
 	style: MarkerOptionsSitios,

@@ -13,7 +13,7 @@ var grillaHistorico = L.geoJSON(historico, {
             <div>
                 <h3>Medias Anuales de Precipitación (mm)<br>Históricas 1990 al 2015</h3>
                 <hr class='hrx' width='100%' />
-                <b><i>Fuente de Información:</i></b> Elaborado a partir de datos estadísticos<br>
+                <b><i>Fuente de Información:</i></b> Elaborado a partir de datos del Ministerio de Ambiente y Desarrollo Sostenible. (2023). <br> <i>Cambios observados y escenarios climáticos futuros para Argentina para diferentes horizontes temporales y umbrales de calentamiento global.</i><br>
                 <b>Fecha de actualización:</b> Diciembre 2024
                 <hr class='hrx' width='100%' />
                 <div>
@@ -98,7 +98,7 @@ var grillaProyeccion = L.geoJSON(proyeccion, {
             <div>
                 <h3>Medias Anuales de Precipitación (mm)<br>Proyección 2015 al 2050</h3>
                 <hr class='hrx' width='100%' />
-                <b><i>Fuente de Información:</i></b> Elaborado a partir de datos estadísticos<br>
+                <b><i>Fuente de Información:</i></b> Elaborado a partir de datos del Ministerio de Ambiente y Desarrollo Sostenible. (2023). <br> <i>Cambios observados y escenarios climáticos futuros para Argentina para diferentes horizontes temporales y umbrales de calentamiento global.</i><br>
                 <b>Fecha de actualización:</b> Diciembre 2024
                 <hr class='hrx' width='100%' />
                 <div>
@@ -183,7 +183,7 @@ var GrillaMensual = L.geoJSON(mensual, {
             <div>
                 <h3>Medias Mensuales de Precipitación (mm)<br>2015 al 2035</h3>
                 <hr class='hrx' width='100%' />
-                <b><i>Fuente de Información:</i></b> Elaborado a partir de datos estadísticos<br>
+               <b><i>Fuente de Información:</i></b> Elaborado a partir de datos del Ministerio de Ambiente y Desarrollo Sostenible. (2023). <br> <i>Cambios observados y escenarios climáticos futuros para Argentina para diferentes horizontes temporales y umbrales de calentamiento global.</i><br>
                 <b>Fecha de actualización:</b> Diciembre 2024
                 <hr class='hrx' width='100%' />
                 <div>
