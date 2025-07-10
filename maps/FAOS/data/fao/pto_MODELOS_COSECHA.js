@@ -10,7 +10,7 @@ var IconSASN =
 function popupContentModelos(feature) {
     var tableHTML = (
         "<div id='Estilo1' align='center'><h3>Comparación de Modelos de Cosecha de Agua</h3></div>" +
-        "<b> name: </b>" + feature.properties.name + " - " + "<b> Localidad: </b>" + feature.properties.loc + " - " + "<b> Ecorregión: </b>" + feature.properties.NOMBRE_ECO + "<br>" +
+        "<b> Departamento: </b>" + feature.properties.name + " - " + "<b> Localidad: </b>" + feature.properties.loc + " - " + "<b> Ecorregión: </b>" + feature.properties.NOMBRE_ECO + "<br>" +
         "<hr class='hrx' align='center' noshade='noshade' size='1' width='100%' />" +
         "<table id='popupTableCosecha' border='1' cellspacing='0' cellpadding='3' style='border-collapse: collapse; width: 100%; font-size: 10px;'>" +
         "<thead align='center'>" +
