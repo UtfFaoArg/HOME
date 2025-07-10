@@ -51,7 +51,7 @@ var overlayMaps = [
 			},
 			{
 				active: false,
-				name: "% de Hogares con NBI (2010)",
+				name: "% de Hogares con NBI (2022)",
 				layer: NBI,
 				transparent: true,
 				opacity: 0.5,

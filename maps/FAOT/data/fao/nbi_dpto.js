@@ -35,8 +35,8 @@ function popupContentNBI(feature) {
          "<b> Departamento: </b>" + feature.properties.DPTO_1 + "<br>" +
 "<b> % de Hogares con NBI: </b>" + feature.properties.PorceNBI + "<br>" +
 // "<b> Total Pob. Provicial con NAF : </b>" + feature.properties.suma_NAF + "<br>" +
-"<b> Fuente : </b> Elaborado a partir de CENSO 2010" + "<br>" +
-"<b> Fecha :  2010 </b>" + "<br>"+
+"<b> Fuente : </b> Elaborado a partir de CENSO " + "<br>" +
+"<b> Fecha :  2022 </b>" + "<br>"+
         "</div>"
     );
 }
