@@ -72,11 +72,11 @@ function popupContentModelos(feature) {
         "<td>" + feature.properties.ECSN_VCU + "</td>" +
         "</tr>" +
         "<tr><td><b>Superficie de Captación</b></td>" +
-        "<td>" + feature.properties.UD_SupCap + " ha</td>" +
-        "<td>" + feature.properties.SASI_SupCa + " ha</td>" +
-        "<td>" + feature.properties.SASN_SupCa + " ha</td>" +
-        "<td>" + feature.properties.GSI_SupCap2 + " ha</td>" +
-        "<td>" + feature.properties.GSN_SupCap + " ha</td>" +
+        "<td>" + feature.properties.UD_SupCap + " m2</td>" +
+        "<td>" + feature.properties.SASI_SupCa + " m2</td>" +
+        "<td>" + feature.properties.SASN_SupCa + " m2</td>" +
+        "<td>" + feature.properties.GSI_SupCap2 + " m2</td>" +
+        "<td>" + feature.properties.GSN_SupCap + " m2</td>" +
         "<td>" + feature.properties.ECSI_SupCa + " ha</td>" +
         "<td>" + feature.properties.ECSN_SupCa + " ha</td>" +
         "</tr>" +
