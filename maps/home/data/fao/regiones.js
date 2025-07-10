@@ -74,19 +74,20 @@ function createLegendRegiones() {
         div.innerHTML = labels.join('<br>');
         return div;
     };
+    legend.addTo(map);
 
-    // Función para mostrar/ocultar la leyenda
-    function toggleLegend() {
-        if (map.hasLayer(REFIONESFAO)) {
-            legend.addTo(map);
-        } else {
-            legend.remove();
-        }
-    }
-    // Eliminar la leyenda al inicio
-    legend.remove();
-    // Escucha el cambio de estado de la capa
-    map.on('overlayadd overlayremove', toggleLegend);
+    // // Función para mostrar/ocultar la leyenda
+    // function toggleLegend() {
+    //     if (map.hasLayer(REFIONESFAO)) {
+    //         legend.addTo(map);
+    //     } else {
+    //         legend.remove();
+    //     }
+    // }
+    // // Eliminar la leyenda al inicio
+    // legend.remove();
+    // // Escucha el cambio de estado de la capa
+    // map.on('overlayadd overlayremove', toggleLegend);
 }
 
 
